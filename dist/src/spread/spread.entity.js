@@ -18,33 +18,33 @@ __decorate([
     __metadata("design:type", Number)
 ], Spread.prototype, "no", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: true }),
+    (0, typeorm_1.Column)({ name: 'intra_no', nullable: true }),
     __metadata("design:type", String)
-], Spread.prototype, "Intra_No", void 0);
+], Spread.prototype, "intra_no", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: true }),
+    (0, typeorm_1.Column)({ name: 'intra_id', nullable: true }),
     __metadata("design:type", String)
-], Spread.prototype, "Intra_Id", void 0);
+], Spread.prototype, "intra_id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: true }),
+    (0, typeorm_1.Column)({ name: 'name', nullable: true }),
     __metadata("design:type", String)
-], Spread.prototype, "\uC131\uBA85", void 0);
+], Spread.prototype, "name", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: true }),
+    (0, typeorm_1.Column)({ name: 'classno', nullable: true }),
     __metadata("design:type", String)
-], Spread.prototype, "\uAE30\uC218", void 0);
+], Spread.prototype, "classno", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: true }),
+    (0, typeorm_1.Column)({ name: 'start', nullable: true }),
     __metadata("design:type", String)
-], Spread.prototype, "\uACFC\uC815\uC2DC\uC791", void 0);
+], Spread.prototype, "start", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: true }),
+    (0, typeorm_1.Column)({ name: 'co', nullable: true }),
     __metadata("design:type", String)
-], Spread.prototype, "\uCF54\uC54C\uB9AC\uC211", void 0);
+], Spread.prototype, "co", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: true }),
+    (0, typeorm_1.Column)({ name: 'academy', nullable: true }),
     __metadata("design:type", String)
-], Spread.prototype, "\uD559\uC801", void 0);
+], Spread.prototype, "academy", void 0);
 Spread = __decorate([
     (0, typeorm_1.Entity)()
 ], Spread);

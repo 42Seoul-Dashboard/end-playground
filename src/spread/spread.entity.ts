@@ -6,24 +6,24 @@ export class Spread extends BaseEntity { //create를 쉽게 만들게 도와줌 
     @PrimaryGeneratedColumn()
     no: number; //기본키
 
-    @Column({ nullable: true })
-    Intra_No: string;
+    @Column({ name: 'intra_no', nullable: true })
+    intra_no: string;
 
-    @Column({ nullable: true })
-    Intra_Id: string;
+    @Column({ name: 'intra_id', nullable: true })
+    intra_id: string;
     
-    @Column({ nullable: true })
-    성명: string;
+    @Column({ name: 'name', nullable: true })
+    name: string;
     
-    @Column({ nullable: true })
-    기수: string;
+    @Column({ name: 'classno', nullable: true })
+    classno: string;
 
-    @Column({ nullable: true })
-    과정시작: string;
+    @Column({ name: 'start', nullable: true })
+    start: string;
 
-    @Column({ nullable: true })
-    코알리숑: string;
+    @Column({ name: 'co', nullable: true })
+    co: string;
 
-    @Column({ nullable: true })
-    학적: string;
+    @Column({ name: 'academy', nullable: true })
+    academy: string;
 }

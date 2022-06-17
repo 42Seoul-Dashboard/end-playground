@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { Spread } from './spread.entity';
 import { Repository } from 'typeorm';
-import { KEY } from 'src/config/key';
+import { SPREAD_END_POINT } from 'src/config/key';
 
 @Injectable()
 export class SpreadsService {
@@ -18,44 +18,15 @@ export class SpreadsService {
 
     //  /* Read */
     async getSpreadByCol(no: any): Promise <any> { //디비에서 데이터 꺼내올때 오래걸리기 때문에 비동기처리
-        const found = await this.spreadRepository.createQueryBuilder('spread').getMany(); //버전바뀜
-        let temp;
+        const found = await this.spreadRepository.find({
+            select: {
+                //no: true,
+                [no]: true
+            }
+        });
 
         console.log(found);
-        temp = [];
-        for (let i = 0; i < 6 ; i++)
-        {
-            switch (no) {
-                case "no":
-                    temp[i] = found[i].no;
-                    break;
-                case "Intra_No":
-                    temp[i] = found[i].Intra_No;
-                   break;
-                case "Intra_Id":
-                    temp[i] = found[i].Intra_Id;
-                    break;
-                case "성명":
-                    temp[i] = found[i].성명;
-                    break;
-                case "기수":
-                    temp[i] = found[i].기수;
-                    break;
-                case "과정시작":
-                    temp[i] = found[i].과정시작;
-                    break;
-                case "코알리숑":
-                    temp[i] = found[i].코알리숑;
-                    break;
-                case "학적":
-                    temp[i] = found[i].학적;
-                    break;
-                default:
-                    throw new NotFoundException(`Can't find Spread with ${no}`)
-                    break;
-            }
-        }
-        return temp;
+        return found;
     }
     
     async getAllSpread(): Promise <Spread[]> {
@@ -79,7 +50,7 @@ export class SpreadsService {
 
     async createSpread(createSpreadDto: CreateSpreadDto): Promise<Spread> {
 
-        const {  no, Intra_No, Intra_Id, 성명, 기수, 과정시작, 코알리숑, 학적 } = createSpreadDto; //DTO적용
+        const {  no, intra_no, intra_id, name, classno, start, co, academy } = createSpreadDto; //DTO적용
 
         const fs = require('fs');
         const axios = require('axios');
@@ -95,7 +66,7 @@ export class SpreadsService {
       
         await axios({
         method: "get", // 요청 방식
-        url: `http://spreadsheets.google.com/tq?key=${KEY}&pub=1`, // 요청 주소
+        url: `http://spreadsheets.google.com/tq?key=${SPREAD_END_POINT}&pub=1`, // 요청 주소
         }).then(function(response) {
             rawdata = response.data;
             console.log(rawdata);
@@ -135,7 +106,7 @@ export class SpreadsService {
                 else
                     arr[j] = null;
             }
-        spread = this.spreadRepository.create({ no: arr[0], Intra_No: arr[1], Intra_Id: arr[2], 성명: arr[3], 기수: arr[4], 과정시작: arr[5], 코알리숑: arr[6], 학적: arr[7]});
+        spread = this.spreadRepository.create({ no: arr[0], intra_no: arr[1], intra_id: arr[2], name: arr[3], classno: arr[4], start: arr[5], co: arr[6], academy: arr[7]});
         //console.log(spread);
         await this.spreadRepository.save(spread);
         //console.log(arr);

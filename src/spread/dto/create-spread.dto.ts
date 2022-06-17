@@ -4,18 +4,18 @@ export class CreateSpreadDto { //class는 런타임에서 작동하여 interface
     
     no: number;
     
-    Intra_No: string;
+    intra_no: string;
     
-    Intra_Id: string;
+    intra_id: string;
     
-    성명: string;
+    name: string;
     
-    기수: string;
+    classno: string;
     
-    과정시작: string;
+    start: string;
     
-    코알리숑: string;
+    co: string;
     
-    학적: string;
+    academy: string;
 
 }

@@ -9,6 +9,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
+const api42_module_1 = require("./api42/api42.module");
 const typeorm_config_1 = require("./config/typeorm.config");
 const spread_module_1 = require("./spread/spread.module");
 let AppModule = class AppModule {
@@ -16,7 +17,7 @@ let AppModule = class AppModule {
 AppModule = __decorate([
     (0, common_1.Module)({
         imports: [typeorm_1.TypeOrmModule.forRoot(typeorm_config_1.typeORMConfig),
-            spread_module_1.SpreadsModule],
+            spread_module_1.SpreadsModule, api42_module_1.Api42sModule]
     })
 ], AppModule);
 exports.AppModule = AppModule;

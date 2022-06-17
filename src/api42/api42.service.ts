@@ -20,7 +20,7 @@ export class Api42sService {
 
     //  /* Read */
     
-    async getCode(): Promise<string> {
+    async getCode(){
         let temp;
         let auth_code;
         await axios ({
@@ -30,10 +30,10 @@ export class Api42sService {
         temp = response.data;
         auth_code = temp.substring(temp.lastIndexOf());
         console.log("what is code ", auth_code);
+        return  auth_code;
         }).catch(function (err){
         //console.log(err); // 에러 처리 내용
         });
-        return await auth_code;
     }
 
    async getToken(code:string) : Promise<string> {
@@ -46,12 +46,12 @@ export class Api42sService {
             data: {
                 grant_type: "client_credentials",
                 client_id: app_id,
-                client_secret: app_secret
+                client_secret: app_secret,
+                redirect_uri:"localhost:3000",
               }
     }).then(function(response) {
         temp = response.data;
         console.log("what is token ",temp.access_token);
-        
         }).catch(function (err){
         //console.log(err); // 에러 처리 내용
         });
@@ -62,7 +62,7 @@ export class Api42sService {
    async sendApi(token:string) : Promise<string> {
     let temp;
     let auth_token;
-
+    console.log("인풋인자: token", token)
     await axios ({
         method: "get", // 요청 방식
         url: "https://api.intra.42.fr/v2/users/junghan",
@@ -73,7 +73,7 @@ export class Api42sService {
         temp = response.data;
         console.log("what is api",temp);
         }).catch(function (err){
-        //console.log(err); // 에러 처리 내용
+            console.log("sendapi함수에서 에러발생"); // 에러 처리 내용
         });
 
         return await temp;
@@ -82,9 +82,9 @@ export class Api42sService {
    async getApi() :Promise<string> {
        let code;
        let token;
-        code = this.getCode();
-        token = this.getToken(code);
-       return await this.sendApi(token);
+        code = await this.getCode();
+        token = await this.getToken(code);
+        return await this.sendApi(token);
    }
     /* Create */
     // async createApi42(createApi42Dto: CreateApi42Dto): Promise<Api42> {

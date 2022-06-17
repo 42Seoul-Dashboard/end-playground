@@ -21,7 +21,7 @@ let SpreadsController = class SpreadsController {
         this.spreadsService = spreadsService;
     }
     getSpreadById(no) {
-        return this.spreadsService.getSpreadById(no);
+        return this.spreadsService.getSpreadByCol(no);
     }
     getAllSpread() {
         return this.spreadsService.getAllSpread();
@@ -46,6 +46,7 @@ __decorate([
 __decorate([
     (0, common_1.Post)(),
     (0, common_1.UsePipes)(common_1.ValidationPipe),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_spread_dto_1.CreateSpreadDto]),
     __metadata("design:returntype", Promise)

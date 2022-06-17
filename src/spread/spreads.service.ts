@@ -17,7 +17,7 @@ export class SpreadsService {
     ) {}
 
     //  /* Read */
-    async getSpreadById(no: any): Promise <any> { //디비에서 데이터 꺼내올때 오래걸리기 때문에 비동기처리
+    async getSpreadByCol(no: any): Promise <any> { //디비에서 데이터 꺼내올때 오래걸리기 때문에 비동기처리
         const found = await this.spreadRepository.createQueryBuilder('spread').getMany(); //버전바뀜
         let temp;
 
@@ -81,8 +81,6 @@ export class SpreadsService {
 
         const {  no, Intra_No, Intra_Id, 성명, 기수, 과정시작, 코알리숑, 학적 } = createSpreadDto; //DTO적용
 
-       
-
         const fs = require('fs');
         const axios = require('axios');
         let jsonData; 
@@ -100,7 +98,7 @@ export class SpreadsService {
         url: `http://spreadsheets.google.com/tq?key=${KEY}&pub=1`, // 요청 주소
         }).then(function(response) {
             rawdata = response.data;
-
+            console.log(rawdata);
             let temp = "/*O_o*/\ngoogle.visualization.Query.setResponse(";
             let temp2 = "";
             let temp3 = ");";
@@ -114,6 +112,8 @@ export class SpreadsService {
 
 
         jsonData = rawdata3;
+
+
         const obj = JSON.parse(jsonData);
         
         const cols = obj.table.cols;
@@ -135,10 +135,10 @@ export class SpreadsService {
                 else
                     arr[j] = null;
             }
-            spread = this.spreadRepository.create({ no: arr[0], Intra_No: arr[1], Intra_Id: arr[2], 성명: arr[3], 기수: arr[4], 과정시작: arr[5], 코알리숑: arr[6], 학적: arr[7]});
-            //console.log(spread);
-            await this.spreadRepository.save(spread);
-            //console.log(arr);
+        spread = this.spreadRepository.create({ no: arr[0], Intra_No: arr[1], Intra_Id: arr[2], 성명: arr[3], 기수: arr[4], 과정시작: arr[5], 코알리숑: arr[6], 학적: arr[7]});
+        //console.log(spread);
+        await this.spreadRepository.save(spread);
+        //console.log(arr);
     }
     return spread;
 }

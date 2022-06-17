@@ -1,1 +1,1 @@
-export declare const KEY = "1bTI3ypQ-tUGA3aawJaMZ9mV_cerVmOPCcyVCrP2jquA";
+export declare const KEY = "1YNJ2b4rAEmM-xwGqjb8yl8wpwRUgVExsIoOYi_b2pH0";

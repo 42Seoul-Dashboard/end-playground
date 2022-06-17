@@ -12,7 +12,7 @@ export class SpreadsController {
     
     @Get('/:no')
     getSpreadById(@Param('no') no:any) : Promise<Spread[]> {
-        return this.spreadsService.getSpreadById(no);
+        return this.spreadsService.getSpreadByCol(no);
     }
 
     @Get()
@@ -22,7 +22,7 @@ export class SpreadsController {
 
     @Post()
     @UsePipes(ValidationPipe)
-    createSpread(createSpread: CreateSpreadDto): Promise<Spread> {
+    createSpread(@Body() createSpread: CreateSpreadDto): Promise<Spread> {
         return this.spreadsService.createSpread(createSpread);
     }
 

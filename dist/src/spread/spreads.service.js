@@ -22,7 +22,7 @@ let SpreadsService = class SpreadsService {
     constructor(spreadRepository) {
         this.spreadRepository = spreadRepository;
     }
-    async getSpreadById(no) {
+    async getSpreadByCol(no) {
         const found = await this.spreadRepository.createQueryBuilder('spread').getMany();
         let temp;
         console.log(found);
@@ -81,6 +81,7 @@ let SpreadsService = class SpreadsService {
             url: `http://spreadsheets.google.com/tq?key=${key_1.KEY}&pub=1`,
         }).then(function (response) {
             rawdata = response.data;
+            console.log(rawdata);
             let temp = "/*O_o*/\ngoogle.visualization.Query.setResponse(";
             let temp2 = "";
             let temp3 = ");";

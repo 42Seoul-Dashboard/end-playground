@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 export declare class SpreadsService {
     private spreadRepository;
     constructor(spreadRepository: Repository<Spread>);
-    getSpreadById(no: any): Promise<any>;
+    getSpreadByCol(no: any): Promise<any>;
     getAllSpread(): Promise<Spread[]>;
     createSpread(createSpreadDto: CreateSpreadDto): Promise<Spread>;
 }

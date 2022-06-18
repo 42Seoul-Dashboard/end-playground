@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ForbiddenException, HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateApi42Dto } from './dto/create-api42.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 
@@ -20,72 +20,68 @@ export class Api42sService {
 
     //  /* Read */
     
-    async getCode(){
+    async getCode():Promise<string>{
         let temp;
         let auth_code;
-        await axios ({
-            method: "get", // 요청 방식
-            url: app_api
-    }).then(function(response) {
-        temp = response.data;
+				temp = await axios ({
+					method: "get", // 요청 방식
+					url: app_api
+				});
+				temp = temp.data;
         auth_code = temp.substring(temp.lastIndexOf());
-        console.log("what is code ", auth_code);
+        // console.log("what is code ", auth_code);
         return  auth_code;
-        }).catch(function (err){
-        //console.log(err); // 에러 처리 내용
-        });
-    }
+		}
 
-   async getToken(code:string) : Promise<string> {
+		async getToken(code:string) {
         let temp;
         let auth_token;
 
-        await axios ({
-            method: "post", // 요청 방식
-            url: "https://api.intra.42.fr/oauth/token",
-            data: {
-                grant_type: "client_credentials",
-                client_id: app_id,
-                client_secret: app_secret,
-                redirect_uri:"localhost:3000",
-              }
-    }).then(function(response) {
-        temp = response.data;
+				temp = await axios ({
+					method: "post", // 요청 방식
+					url: "https://api.intra.42.fr/oauth/token",
+					data: {
+							grant_type: "client_credentials",
+							client_id: app_id,
+							client_secret: app_secret,
+							redirect_uri:"localhost:3000",
+						}
+					});
+        temp = temp.data;
         console.log("what is token ",temp.access_token);
-        }).catch(function (err){
-        //console.log(err); // 에러 처리 내용
-        });
+        return temp.access_token;
+	}
 
-        return await temp.access_token;
-   }
-
-   async sendApi(token:string) : Promise<string> {
+    async sendApi(token){
     let temp;
     let auth_token;
     console.log("인풋인자: token", token)
-    await axios ({
-        method: "get", // 요청 방식
-        url: "https://api.intra.42.fr/v2/users/junghan",
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    }).then(function(response) {
-        temp = response.data;
-        console.log("what is api",temp);
-        }).catch(function (err){
-            console.log("sendapi함수에서 에러발생"); // 에러 처리 내용
-        });
+		temp = await axios ({
+			method: "get", // 요청 방식
+			url: "https://api.intra.42.fr/v2/users/junghan",
+			headers: {
+					Authorization: `Bearer ${token}`
+			}
+		})
+		temp = temp.data;
+		// console.log("what is api",temp);
+		return temp;
+	}
 
-        return await temp;
-    }
-
-   async getApi() :Promise<string> {
-       let code;
-       let token;
-        code = await this.getCode();
-        token = await this.getToken(code);
-        return await this.sendApi(token);
-   }
+   async getApi() {
+			let code;
+			let token;
+			try{
+				console.log("순서확인: 1");
+				// code = await this.getCode();//getCode에서 받아오는 data는 html
+				console.log("순서확인: 2");
+				token = await this.getToken(code);
+				console.log("순서확인: 3");
+				return await this.sendApi(token);
+			}catch{
+				throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+			}
+		}
     /* Create */
     // async createApi42(createApi42Dto: CreateApi42Dto): Promise<Api42> {
     //     //const title = creadApi42Dto.title;

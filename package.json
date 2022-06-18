@@ -7,6 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "clean": "rm -rf dist",
+    "clear": "rm -rf dist",
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",

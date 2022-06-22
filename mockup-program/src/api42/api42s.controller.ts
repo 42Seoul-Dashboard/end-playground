@@ -17,7 +17,7 @@ export class Api42sController {
     // }
 
     @Get("/api")
-    getCode(): Promise<string> {
+    getCode() {
         return this.api42sService.getApi();
     }
 

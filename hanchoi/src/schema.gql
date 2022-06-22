@@ -2,13 +2,13 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-"""temp"""
-type UserTemp {
-  id: ID!
-  name: String!
-  email: String!
-}
-
 type Query {
   getUserTempById(id: String!): UserTemp!
+}
+
+"""temp"""
+type UserTemp {
+  email: String!
+  id: ID!
+  name: String!
 }

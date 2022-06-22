@@ -1,2 +1,3 @@
-node_modules/
-src/config/
+./mockup-program/node_modules/
+./mockup-program/src/config/
+./mockup-program/dist/

@@ -7,7 +7,7 @@ export class UserEmploymentAndFound extends BaseEntity {
     @PrimaryGeneratedColumn({name: "pk"})
     pk: number
 
-    @Column({name: "employment", nullable: true })
+    @Column({name: "employment", nullable: false, default: "N" })
     employment: string;
     
     @Column({name: "employment_date", nullable: true })

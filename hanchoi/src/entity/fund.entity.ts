@@ -41,11 +41,23 @@ export class UserEducationFundState extends BaseEntity {
     @Column({name: "total_payment_of_money", nullable: false, default: 0 })
     total_payment_of_money: number;
 
-    @Column({name: "fund_date", nullable: true })
-    fund_date: Date;
+    @Column({name: "fund_period", nullable: true })
+    fund_period: Date;
 
-    @Column({name: "remaining_date_of_fund", nullable: true })
-    remaining_date_of_fund: number;
+    @Column({name: "remaining_period_of_fund", nullable: true })
+    remaining_period_of_fund: number;
+
+    @Column({name: "total_calculated_month", nullable: false, default: 0 })
+    total_calculated_month: number;
+
+    @Column({name: "payment_give_start_date", nullable: true })
+    payment_give_start_date: Date;
+
+    @Column({name: "payment_delay_period", nullable: true })
+    payment_delay_period: number;
+    
+    @Column({name: "payment_give_break_date", nullable: true })
+    payment_give_break_date: Date;
 
     @Column({name: "created_date", nullable: false })
     created_date: Date;

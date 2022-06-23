@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserComputationFund, UserEducationFundState } from 'src/entity/user_payment.entity';
 import { UserPaymentController } from './user_payment.controller';
 import { UserPaymentService } from './user_payment.service';
+import { UserPaymentResolver } from './user_payment.resolver';
 
 @Module({
   imports: [
@@ -12,6 +13,6 @@ import { UserPaymentService } from './user_payment.service';
     ])
   ],
   controllers: [UserPaymentController],
-  providers: [UserPaymentService]
+  providers: [UserPaymentService, UserPaymentResolver]
 })
 export class UserPaymentModule {}

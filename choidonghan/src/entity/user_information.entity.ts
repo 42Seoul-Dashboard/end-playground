@@ -1,5 +1,5 @@
 import { BaseEntity, Column, Entity, ManyToOne, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
-import { UserBlackhole, UserLapiscineInformation, UserLearningDate, UserLeaveOfAbsence, UserProcessProgress, UserReasonOfBreak } from "./user_status.entity";
+import { UserBlackhole, UserLapiscineInformation, UserLearningData, UserLeaveOfAbsence, UserProcessProgress, UserReasonOfBreak } from "./user_status.entity";
 import { UserEmploymentAndFound, UserEmploymentStatus, UserHrdNetUtilize, UserInternStatus } from "./user_job.entity";
 import { UserComputationFund, UserEducationFundState } from "./user_payment.entity";
 
@@ -48,8 +48,8 @@ export class User extends BaseEntity {
     *             Academic             * 
     ***********************************/
 
-    @ManyToOne(() => UserLearningDate, userLearningDate => userLearningDate.user)
-    userLearningDate: UserLearningDate;
+    @ManyToOne(() => UserLearningData, userLearningDate => userLearningDate.user)
+    userLearningDate: UserLearningData;
 
     @ManyToOne(() => UserProcessProgress, userProcessProgress => userProcessProgress.user)
     userProcessProgress: UserProcessProgress;

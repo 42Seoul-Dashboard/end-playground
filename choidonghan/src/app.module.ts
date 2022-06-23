@@ -8,9 +8,13 @@ import { UserInformationModule } from './user_information/user_information.modul
 import { UserStatusModule } from './user_status/user_status.module';
 import { UserPaymentModule } from './user_payment/user_payment.module';
 import { UserJobModule } from './user_job/user_job.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { typeORMConfig } from './config/typeorm.config';
 
 @Module({
-  imports: [UserInformationModule,
+  imports: [
+    TypeOrmModule.forRoot(typeORMConfig),
+    UserInformationModule,
     // UserJobModule,
     // UserPaymentModule,
     // UserStatusModule,

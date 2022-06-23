@@ -29,6 +29,7 @@
     "@nestjs/typeorm": "^8.1.4",
     "apollo-server-express": "^3.9.0",
     "graphql": "^16.5.0",
+    "graphql-ws": "^5.9.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",

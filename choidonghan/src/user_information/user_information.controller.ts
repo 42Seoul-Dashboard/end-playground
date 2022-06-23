@@ -3,4 +3,9 @@ import { UserInformationService } from './user_information.service';
 
 @Controller('user-information')
 export class UserInformationController {
+    constructor(private readonly userService:UserInformationService){}
+    @Get()
+    testUser(){
+        return this.userService.getUserByhuchoi();
+    }
 }

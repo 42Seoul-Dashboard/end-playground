@@ -1,4 +1,4 @@
-import { Field, ObjectType } from "@nestjs/graphql";
+import { Field, Int, ObjectType } from "@nestjs/graphql";
 import { BaseEntity, Column, CreateDateColumn, Entity, OneToOne, PrimaryColumn} from "typeorm";
 import { User } from "./user_information.entity";
 //출입카드정보
@@ -6,23 +6,23 @@ import { User } from "./user_information.entity";
 @ObjectType()
 export class UserAccessCardInformation extends BaseEntity {
 
-    @Field()
+    @Field((type)=>Int)
     @PrimaryColumn()
     pk:number
 
     @Field()
-    @Column({name: "profile_picture", nullable: true })
-    profile_picture: string;
+    @Column({name: "profile_picture_path", nullable: true })
+    profile_picture_path: string;
     
-    @Field()
+    @Field((type)=>Int)
     @Column({name: "lapiscine_access_card_number_of_physical", nullable: true })
     lapiscine_access_card_number_of_physical: number;
 
-    @Field()
+    @Field((type)=>Int)
     @Column({name: "lapiscine_access_card_number_of_logical", nullable: true})
     lapiscine_access_card_number_of_logical: number;
 
-    @Field()
+    @Field((type)=>Int)
     @Column({name: "logical_number_of_access_card_for_this_course", nullable: true })
     logical_number_of_access_card_for_this_course: number;
 

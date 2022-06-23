@@ -1,18 +1,18 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, OneToMany, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 import { UserBlackhole, UserLapiscineInformation, UserLearningData, UserLeaveOfAbsence, UserProcessProgress, UserReasonOfBreak } from "./user_status.entity";
 import { UserEmploymentAndFound, UserEmploymentStatus, UserHrdNetUtilize, UserInternStatus } from "./user_job.entity";
 import { UserComputationFund, UserEducationFundState } from "./user_payment.entity";
 import { UserPersonalInformation } from "./user_personal_information.entity";
 import { UserAccessCardInformation } from "./user_access_card_information.entity";
 import { UserOtherInformation } from "./user_other_information.entity";
-import { Field, ObjectType } from "@nestjs/graphql";
+import { Field, Int, ObjectType } from "@nestjs/graphql";
 
 //유저
 @ObjectType()
 @Entity()
 export class User {
 
-    @Field()
+    @Field((type)=>Int)
     @PrimaryColumn({name: "intra_no"})
     intra_no: number;
 
@@ -54,57 +54,57 @@ export class User {
     @OneToOne(() => UserAccessCardInformation, userAccessCardInformation => userAccessCardInformation.user) 
     userAccessCardInformation: UserAccessCardInformation;
     
-    @ManyToOne(() => UserOtherInformation, userOtherInformation => userOtherInformation.user)
-    userOtherInformation: UserOtherInformation;
+    @OneToMany(() => UserOtherInformation, userOtherInformation => userOtherInformation.user)
+    userOtherInformation: UserOtherInformation[];
     
     /***********************************
     *             Academic             * 
      ***********************************/
     
-    @ManyToOne(() => UserLearningData, userLearningDate => userLearningDate.user)
-    userLearningDate: UserLearningData;
+    @OneToMany(() => UserLearningData, userLearningDate => userLearningDate.user)
+    userLearningDate: UserLearningData[];
     
-    @ManyToOne(() => UserProcessProgress, userProcessProgress => userProcessProgress.user)
-    userProcessProgress: UserProcessProgress;
+    @OneToMany(() => UserProcessProgress, userProcessProgress => userProcessProgress.user)
+    userProcessProgress: UserProcessProgress[];
     
-    @ManyToOne(() => UserBlackhole, userBlackhole => userBlackhole.user)
-    userBlackhole: UserBlackhole;
+    @OneToMany(() => UserBlackhole, userBlackhole => userBlackhole.user)
+    userBlackhole: UserBlackhole[];
     
-    @ManyToOne(() => UserLeaveOfAbsence, userLeaveOfAbsence => userLeaveOfAbsence.user)
-    userLeaveOfAbsence: UserLeaveOfAbsence;
+    @OneToMany(() => UserLeaveOfAbsence, userLeaveOfAbsence => userLeaveOfAbsence.user)
+    userLeaveOfAbsence: UserLeaveOfAbsence[];
     
-    @ManyToOne(() => UserReasonOfBreak, userReasonOfBreak => userReasonOfBreak.user)
-    userReasonOfBreak: UserReasonOfBreak;
+    @OneToMany(() => UserReasonOfBreak, userReasonOfBreak => userReasonOfBreak.user)
+    userReasonOfBreak: UserReasonOfBreak[];
     
-    @ManyToOne(() => UserLapiscineInformation, userLapiscineInformation => userLapiscineInformation.user)
-    userLapiscineInformation: UserLapiscineInformation;
+    @OneToMany(() => UserLapiscineInformation, userLapiscineInformation => userLapiscineInformation.user)
+    userLapiscineInformation: UserLapiscineInformation[];
     
     /***********************************
      *               Fund               * 
      ***********************************/
     
-    @ManyToOne(() => UserComputationFund, userComputationFund => userComputationFund.user)
-    userComputationFund: UserComputationFund;
+    @OneToMany(() => UserComputationFund, userComputationFund => userComputationFund.user)
+    userComputationFund: UserComputationFund[];
     
     
-    @ManyToOne(() => UserEducationFundState, userEducationFundState => userEducationFundState.user)
-    userEducationFundState: UserEducationFundState;
+    @OneToMany(() => UserEducationFundState, userEducationFundState => userEducationFundState.user)
+    userEducationFundState: UserEducationFundState[];
     
     /***********************************
      *              employ              * 
      ***********************************/
 
-    @ManyToOne(() => UserEmploymentAndFound, UserEmploymentAndFound => UserEmploymentAndFound.user)
-    UserEmploymentAndFound: UserEmploymentAndFound;
+    @OneToMany(() => UserEmploymentAndFound, UserEmploymentAndFound => UserEmploymentAndFound.user)
+    UserEmploymentAndFound: UserEmploymentAndFound[];
 
-    @ManyToOne(() => UserInternStatus, userInternStatus => userInternStatus.user)
-    userInternStatus: UserInternStatus;
+    @OneToMany(() => UserInternStatus, userInternStatus => userInternStatus.user)
+    userInternStatus: UserInternStatus[];
     
-    @ManyToOne(() => UserHrdNetUtilize, userHrdNetUtilize => userHrdNetUtilize.user)
-    userHrdNetUtilize: UserHrdNetUtilize;
+    @OneToMany(() => UserHrdNetUtilize, userHrdNetUtilize => userHrdNetUtilize.user)
+    userHrdNetUtilize: UserHrdNetUtilize[];
     
-    @ManyToOne(() => UserEmploymentStatus, userEmploymentStatus => userEmploymentStatus.user)
-    userEmploymentStatus: UserEmploymentStatus;
+    @OneToMany(() => UserEmploymentStatus, userEmploymentStatus => userEmploymentStatus.user)
+    userEmploymentStatus: UserEmploymentStatus[];
     
 }
 

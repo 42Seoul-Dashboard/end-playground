@@ -25,7 +25,7 @@ export class UserPersonalInformation {
 
     @Field()
     @Column({name: "phone_number", nullable: true })
-    phone_number: Date;
+    phone_number: String;
 
     @Field()
     @Column({name: "email", nullable: true })

@@ -9,6 +9,9 @@ scalar DateTime
 
 type Query {
   getUser: [User!]!
+  getUserAccessCardInformation: [UserAccessCardInformation!]!
+  getUserOtherInformation: [UserOtherInformation!]!
+  getUserPersonalInformation: [UserPersonalInformation!]!
   getUserTempById(id: String!): UserTemp!
 }
 
@@ -18,9 +21,40 @@ type User {
   created_date: DateTime!
   grade: String!
   intra_id: String!
-  intra_no: Float!
+  intra_no: Int!
   name: String!
   start_process: DateTime!
+}
+
+type UserAccessCardInformation {
+  created_date: DateTime!
+  lapiscine_access_card_number_of_logical: Int!
+  lapiscine_access_card_number_of_physical: Int!
+  logical_number_of_access_card_for_this_course: Int!
+  name_of_entry_card_for_this_course: String!
+  pk: Int!
+  profile_picture_path: String!
+}
+
+type UserOtherInformation {
+  created_date: DateTime!
+  experience_of_software_developing: String!
+  highest_level_of_education: String!
+  major: String!
+  major_field: String!
+  major_name: DateTime!
+  period_of_software_learning: Int!
+  pk: Int!
+}
+
+type UserPersonalInformation {
+  birthday: String!
+  created_date: DateTime!
+  email: String!
+  gender: String!
+  phone_number: String!
+  pk: Int!
+  region: String!
 }
 
 """temp"""

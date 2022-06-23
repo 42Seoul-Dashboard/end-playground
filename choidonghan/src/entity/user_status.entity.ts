@@ -10,19 +10,19 @@ export class UserLearningData extends BaseEntity {
     @PrimaryGeneratedColumn({name: "pk"})
     pk: number
 
-    @Field()
+    @Field({ nullable: false, defaultValue: 0 })
     @Column({name: "coalition_score", nullable: false, default: 0 })
     coalition_score: number;
     
-    @Field()
+    @Field({ nullable: false, defaultValue: "N" })
     @Column({name: "out_circle", nullable: false, default: "N" })
     out_circle: string;
 
-    @Field()
+    @Field({ nullable: true })
     @Column({name: "out_circle_date", nullable: true })
     out_circle_date: Date;
 
-    @Field()
+    @Field({ nullable: false })
     @Column({name: "created_date", nullable: false })
     created_date: Date;
 
@@ -38,19 +38,19 @@ export class UserProcessProgress extends BaseEntity {
     @PrimaryGeneratedColumn({name: "pk"})
     pk: number
 
-    @Field()
+    @Field({ nullable: false , defaultValue: "9999-12-31"})
     @Column({name: "basic_expiration_date", nullable: false, default: "9999-12-31" })
     basic_expiration_date: Date;
     
-    @Field()
-    @Column({name: "request_extension", nullable: true})
+    @Field({ nullable: true })
+    @Column({name: "request_extension", nullable: true })
     request_extension: string;
 
-    @Field()
+    @Field({ nullable: false, defaultValue: "9999-12-31" })
     @Column({name: "final_expiration_date", nullable: false, default: "9999-12-31" })
     final_expiration_date: Date;
 
-    @Field()
+    @Field({ nullable: false })
     @Column({name: "created_date", nullable: false })
     created_date: Date;
 
@@ -66,19 +66,19 @@ export class UserBlackhole extends BaseEntity {
     @PrimaryGeneratedColumn({name: "pk"})
     pk: number
 
-    @Field()
+    @Field({ nullable: true })
     @Column({name: "remaining_period", nullable: true })
     remaining_period: number;
     
-    @Field()
+    @Field({ nullable: false, defaultValue: "9999-12-31" })
     @Column({name: "blackhole_time", nullable: false, default: "9999-12-31" })
     blackhole_time: Date;
 
-    @Field()
+    @Field({ nullable: true })
     @Column({name: "reason_of_blackhole", nullable: true })
     reason_of_blackhole: string;
 
-    @Field()
+    @Field({ nullable: false })
     @Column({name: "created_date", nullable: false })
     created_date: Date;
 
@@ -94,23 +94,23 @@ export class UserLeaveOfAbsence extends BaseEntity {
     @PrimaryGeneratedColumn({name: "pk"})
     pk: number
 
-    @Field()
+    @Field({ nullable: true })
     @Column({name: "start_absence_date", nullable: true })
     start_absence_date: Date;
     
-    @Field()
+    @Field({ nullable: true })
     @Column({name: "end_absence_date", nullable: true })
     end_absence_date: Date;
 
-    @Field()
+    @Field({ nullable: true })
     @Column({name: "return_from_absence_date", nullable: true })
     return_from_absence_date: Date;
     
-    @Field()
+    @Field({ nullable: true })
     @Column({name: "absence_reason", nullable: true })
     absence_reason: string;
 
-    @Field()
+    @Field({ nullable: false })
     @Column({name: "created_date", nullable: false })
     created_date: Date;
 
@@ -127,15 +127,15 @@ export class UserReasonOfBreak extends BaseEntity {
     @PrimaryGeneratedColumn({name: "pk"})
     pk: number
 
-    @Field()
+    @Field({ nullable: true })
     @Column({name: "date_of_break", nullable: true })
     date_of_break: number;
     
-    @Field()
+    @Field({ nullable: false, defaultValue: "9999-12-31" })
     @Column({name: "reason_of_break", nullable: false, default: "9999-12-31" })
     reason_of_break: Date;
 
-    @Field()
+    @Field({ nullable: false })
     @Column({name: "created_date", nullable: false })
     created_date: Date;
 
@@ -152,19 +152,19 @@ export class UserLapiscineInformation extends BaseEntity {
     @PrimaryGeneratedColumn({name: "pk"})
     pk: number
 
-    @Field()
+    @Field({ nullable: true })
     @Column({name: "lapiscine_grade", nullable: true })
     lapiscine_grade: number;
     
-    @Field()
+    @Field({ nullable: false, defaultValue: "0" })
     @Column({name: "lapiscine_degree", nullable: false, default: "0" })
     lapiscine_degree: number;
 
-    @Field()
+    @Field({ nullable: true })
     @Column({name: "participate_lapicin", nullable: true })
     participate_lapicin: string;
 
-    @Field()
+    @Field({ nullable: true })
     @Column({name: "number_of_rapicin_participation", nullable: true })
     number_of_rapicin_participation: string;
 

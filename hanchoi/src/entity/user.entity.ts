@@ -1,4 +1,7 @@
 import { BaseEntity, Column, Entity, ManyToOne, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { UserBlackhole, UserLapiscineInformation, UserLearningDate, UserLeaveOfAbsence, UserProcessProgress, UserReasonOfBreak } from "./academic.entity";
+import { UserEmploymentAndFound, UserEmploymentStatus, UserHrdNetUtilize, UserInternStatus } from "./employ.entity";
+import { UserComputationFund, UserEducationFundState } from "./fund.entity";
 
 //유저
 @Entity()
@@ -28,6 +31,10 @@ export class User extends BaseEntity {
     @Column({name: "created_date", nullable: false })
     created_date: Date;
 
+    /***********************************
+    *               User               * 
+    ***********************************/
+
     @OneToOne(() => UserPersonalInformation, userPersonalInformation => userPersonalInformation.user) 
     userPersonalInformation: UserPersonalInformation;
 
@@ -36,6 +43,56 @@ export class User extends BaseEntity {
 
     @ManyToOne(() => UserOtherInformation, userOtherInformation => userOtherInformation.user)
     userOtherInformation: UserOtherInformation;
+
+    /***********************************
+    *             Academic             * 
+    ***********************************/
+
+    @ManyToOne(() => UserLearningDate, userLearningDate => userLearningDate.user)
+    userLearningDate: UserLearningDate;
+
+    @ManyToOne(() => UserProcessProgress, userProcessProgress => userProcessProgress.user)
+    userProcessProgress: UserProcessProgress;
+
+    @ManyToOne(() => UserBlackhole, userBlackhole => userBlackhole.user)
+    userBlackhole: UserBlackhole;
+
+    @ManyToOne(() => UserLeaveOfAbsence, userLeaveOfAbsence => userLeaveOfAbsence.user)
+    userLeaveOfAbsence: UserLeaveOfAbsence;
+
+    @ManyToOne(() => UserReasonOfBreak, userReasonOfBreak => userReasonOfBreak.user)
+    userReasonOfBreak: UserReasonOfBreak;
+
+    @ManyToOne(() => UserLapiscineInformation, userLapiscineInformation => userLapiscineInformation.user)
+    userLapiscineInformation: UserLapiscineInformation;
+
+    /***********************************
+    *               Fund               * 
+    ***********************************/
+
+    @ManyToOne(() => UserComputationFund, userComputationFund => userComputationFund.user)
+    userComputationFund: UserComputationFund;
+
+
+    @ManyToOne(() => UserEducationFundState, userEducationFundState => userEducationFundState.user)
+    userEducationFundState: UserEducationFundState;
+
+    /***********************************
+    *              employ              * 
+    ***********************************/
+
+    @ManyToOne(() => UserEmploymentAndFound, UserEmploymentAndFound => UserEmploymentAndFound.user)
+    UserEmploymentAndFound: UserEmploymentAndFound;
+
+    @ManyToOne(() => UserInternStatus, userInternStatus => userInternStatus.user)
+    userInternStatus: UserInternStatus;
+
+    @ManyToOne(() => UserHrdNetUtilize, userHrdNetUtilize => userHrdNetUtilize.user)
+    userHrdNetUtilize: UserHrdNetUtilize;
+
+    @ManyToOne(() => UserEmploymentStatus, userEmploymentStatus => userEmploymentStatus.user)
+    userEmploymentStatus: UserEmploymentStatus;
+
 }
 
 //개인정보관리

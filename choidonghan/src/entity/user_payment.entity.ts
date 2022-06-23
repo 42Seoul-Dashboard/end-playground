@@ -1,5 +1,5 @@
 import { Field, Int, ObjectType } from "@nestjs/graphql";
-import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { User } from "./user_information.entity";
 
 //지원금산정
@@ -31,7 +31,7 @@ export class UserComputationFund extends BaseEntity {
     payment_date: Date;
 
     @Field({ nullable: false})
-    @Column({name: "created_date", nullable: false })
+    @CreateDateColumn({name: "created_date"})    
     created_date: Date;
 
     @ManyToOne(() => User, user => user.userComputationFund) 
@@ -39,6 +39,7 @@ export class UserComputationFund extends BaseEntity {
 }
 
 //지원금지급현황
+@ObjectType()
 @Entity()
 export class UserEducationFundState extends BaseEntity {
     @Field({ nullable: false})
@@ -78,7 +79,7 @@ export class UserEducationFundState extends BaseEntity {
     payment_give_break_date: Date;
 
     @Field({ nullable: false})
-    @Column({name: "created_date", nullable: false })
+    @CreateDateColumn({name: "created_date"})    
     created_date: Date;
 
     @ManyToOne(() => User, user => user.userEducationFundState) 

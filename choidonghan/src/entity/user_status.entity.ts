@@ -1,21 +1,28 @@
-import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Field, ObjectType } from "@nestjs/graphql";
+import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { User } from "./user_information.entity";
 
 //학습데이터
+@ObjectType()
 @Entity()
 export class UserLearningData extends BaseEntity {
+    @Field()
     @PrimaryGeneratedColumn({name: "pk"})
     pk: number
 
+    @Field()
     @Column({name: "coalition_score", nullable: false, default: 0 })
     coalition_score: number;
     
+    @Field()
     @Column({name: "out_circle", nullable: false, default: "N" })
     out_circle: string;
 
+    @Field()
     @Column({name: "out_circle_date", nullable: true })
     out_circle_date: Date;
 
+    @Field()
     @Column({name: "created_date", nullable: false })
     created_date: Date;
 
@@ -24,20 +31,26 @@ export class UserLearningData extends BaseEntity {
 }
 
 //과정진행여부
+@ObjectType()
 @Entity()
 export class UserProcessProgress extends BaseEntity {
+    @Field()
     @PrimaryGeneratedColumn({name: "pk"})
     pk: number
 
+    @Field()
     @Column({name: "basic_expiration_date", nullable: false, default: "9999-12-31" })
     basic_expiration_date: Date;
     
+    @Field()
     @Column({name: "request_extension", nullable: true})
     request_extension: string;
 
+    @Field()
     @Column({name: "final_expiration_date", nullable: false, default: "9999-12-31" })
     final_expiration_date: Date;
 
+    @Field()
     @Column({name: "created_date", nullable: false })
     created_date: Date;
 
@@ -46,20 +59,26 @@ export class UserProcessProgress extends BaseEntity {
 }
 
 //블랙홀
+@ObjectType()
 @Entity()
 export class UserBlackhole extends BaseEntity {
+    @Field()
     @PrimaryGeneratedColumn({name: "pk"})
     pk: number
 
+    @Field()
     @Column({name: "remaining_period", nullable: true })
     remaining_period: number;
     
+    @Field()
     @Column({name: "blackhole_time", nullable: false, default: "9999-12-31" })
     blackhole_time: Date;
 
+    @Field()
     @Column({name: "reason_of_blackhole", nullable: true })
     reason_of_blackhole: string;
 
+    @Field()
     @Column({name: "created_date", nullable: false })
     created_date: Date;
 
@@ -68,23 +87,30 @@ export class UserBlackhole extends BaseEntity {
 }
 
 //휴학
+@ObjectType()
 @Entity()
 export class UserLeaveOfAbsence extends BaseEntity {
+    @Field()
     @PrimaryGeneratedColumn({name: "pk"})
     pk: number
 
+    @Field()
     @Column({name: "start_absence_date", nullable: true })
     start_absence_date: Date;
     
+    @Field()
     @Column({name: "end_absence_date", nullable: true })
     end_absence_date: Date;
 
+    @Field()
     @Column({name: "return_from_absence_date", nullable: true })
     return_from_absence_date: Date;
     
+    @Field()
     @Column({name: "absence_reason", nullable: true })
     absence_reason: string;
 
+    @Field()
     @Column({name: "created_date", nullable: false })
     created_date: Date;
 
@@ -94,17 +120,22 @@ export class UserLeaveOfAbsence extends BaseEntity {
 
 
 //과정중단
+@ObjectType()
 @Entity()
 export class UserReasonOfBreak extends BaseEntity {
+    @Field()
     @PrimaryGeneratedColumn({name: "pk"})
     pk: number
 
+    @Field()
     @Column({name: "date_of_break", nullable: true })
     date_of_break: number;
     
+    @Field()
     @Column({name: "reason_of_break", nullable: false, default: "9999-12-31" })
     reason_of_break: Date;
 
+    @Field()
     @Column({name: "created_date", nullable: false })
     created_date: Date;
 
@@ -114,24 +145,30 @@ export class UserReasonOfBreak extends BaseEntity {
 
 
 //라피신정보관리
+@ObjectType()
 @Entity()
 export class UserLapiscineInformation extends BaseEntity {
+    @Field()
     @PrimaryGeneratedColumn({name: "pk"})
     pk: number
 
+    @Field()
     @Column({name: "lapiscine_grade", nullable: true })
     lapiscine_grade: number;
     
-    @Column({name: "lapiscine_degree", nullable: false, default: "9999-12-31" })
+    @Field()
+    @Column({name: "lapiscine_degree", nullable: false, default: "0" })
     lapiscine_degree: number;
 
+    @Field()
     @Column({name: "participate_lapicin", nullable: true })
     participate_lapicin: string;
 
+    @Field()
     @Column({name: "number_of_rapicin_participation", nullable: true })
     number_of_rapicin_participation: string;
 
-    @Column({name: "created_date", nullable: false })
+    @CreateDateColumn({name: "created_date"})    
     created_date: Date;
 
     @ManyToOne(() => User, user => user.intra_no) 

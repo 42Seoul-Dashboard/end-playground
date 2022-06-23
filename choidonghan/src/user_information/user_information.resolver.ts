@@ -1,5 +1,6 @@
 import { Query } from '@nestjs/graphql';
 import { Args, Resolver } from '@nestjs/graphql';
+import { User } from 'src/entity/user_information.entity';
 import { UserTemp } from '../entity/ex.entity';
 import { UserInformationService } from './user_information.service';
 
@@ -12,4 +13,10 @@ export class UserInformationResolver {
         // return "test";
         return this.userService.getUserTempById();
     }
+
+    @Query(()=>[User] )
+    getUser(){
+        return this.userService.getUserByhuchoi();
+    }
+
 }

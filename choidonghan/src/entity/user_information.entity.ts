@@ -1,37 +1,47 @@
-import { BaseEntity, Column, Entity, ManyToOne, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 import { UserBlackhole, UserLapiscineInformation, UserLearningData, UserLeaveOfAbsence, UserProcessProgress, UserReasonOfBreak } from "./user_status.entity";
 import { UserEmploymentAndFound, UserEmploymentStatus, UserHrdNetUtilize, UserInternStatus } from "./user_job.entity";
 import { UserComputationFund, UserEducationFundState } from "./user_payment.entity";
 import { UserPersonalInformation } from "./user_personal_information.entity";
 import { UserAccessCardInformation } from "./user_access_card_information.entity";
 import { UserOtherInformation } from "./user_other_information.entity";
+import { Field, ObjectType } from "@nestjs/graphql";
 
 //유저
+@ObjectType()
 @Entity()
-export class User extends BaseEntity {
+export class User {
 
+    @Field()
     @PrimaryColumn({name: "intra_no"})
     intra_no: number;
 
+    @Field()
     @Column({name: "intra_id", nullable: false, default: "NOT_EXIST" })
     intra_id: string;
     
-    @Column({name: "intra_id", nullable: false, default: "NO_NAME" })
+    @Field()
+    @Column({name: "name", nullable: false, default: "NO_NAME" })
     name: string;
 
+    @Field()
     @Column({name: "grade", nullable: false, default: "0기" })
     grade: string;
 
+    @Field()
     @Column({name: "start_process", nullable: false, default: "9999-12-31" })
     start_process: Date;
 
+    @Field()
     @Column({name: "academic_state", nullable: false, default: "BLACK_HOLE" })
     academic_state: string;
 
+    @Field()
     @Column({name: "coalition", nullable: true })
     coalition: string;
 
-    @Column({name: "created_date", nullable: false })
+    @Field()
+    @CreateDateColumn({name:"create_date"})
     created_date: Date;
     
     /***********************************

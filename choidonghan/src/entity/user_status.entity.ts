@@ -1,9 +1,9 @@
 import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { User } from "./user.entity";
+import { User } from "./user_information.entity";
 
 //학습데이터
 @Entity()
-export class UserLearningDate extends BaseEntity {
+export class UserLearningData extends BaseEntity {
     @PrimaryGeneratedColumn({name: "pk"})
     pk: number
 

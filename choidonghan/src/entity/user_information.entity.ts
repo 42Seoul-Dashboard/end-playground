@@ -1,7 +1,7 @@
 import { BaseEntity, Column, Entity, ManyToOne, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
-import { UserBlackhole, UserLapiscineInformation, UserLearningDate, UserLeaveOfAbsence, UserProcessProgress, UserReasonOfBreak } from "./academic.entity";
-import { UserEmploymentAndFound, UserEmploymentStatus, UserHrdNetUtilize, UserInternStatus } from "./employ.entity";
-import { UserComputationFund, UserEducationFundState } from "./fund.entity";
+import { UserBlackhole, UserLapiscineInformation, UserLearningDate, UserLeaveOfAbsence, UserProcessProgress, UserReasonOfBreak } from "./user_status.entity";
+import { UserEmploymentAndFound, UserEmploymentStatus, UserHrdNetUtilize, UserInternStatus } from "./user_job.entity";
+import { UserComputationFund, UserEducationFundState } from "./user_payment.entity";
 
 //유저
 @Entity()

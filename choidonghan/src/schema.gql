@@ -8,11 +8,12 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 type Query {
-  getUser: [User!]!
   getUserAccessCardInformation: [UserAccessCardInformation!]!
+  getUserById(created_date: DateTime!, experience_of_software_developing: String!, highest_level_of_education: String!, major: String!, major_field: String!, major_name: DateTime!, period_of_software_learning: Int, pk: Int): [User!]!
   getUserOtherInformation: [UserOtherInformation!]!
   getUserPersonalInformation: [UserPersonalInformation!]!
   getUserTempById(id: String!): UserTemp!
+  getUsers: [User!]!
 }
 
 type User {

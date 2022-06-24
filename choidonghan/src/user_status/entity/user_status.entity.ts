@@ -1,6 +1,6 @@
 import { Field, ObjectType } from "@nestjs/graphql";
 import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { User } from "./user_information.entity";
+import { User } from "../../user_information/entity/user_information.entity";
 
 //학습데이터
 @ObjectType()

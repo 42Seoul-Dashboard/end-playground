@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { UserComputationFund, UserEducationFundState } from 'src/entity/user_payment.entity';
+import { UserComputationFund, UserEducationFundState } from 'src/user_payment/entity/user_payment.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()

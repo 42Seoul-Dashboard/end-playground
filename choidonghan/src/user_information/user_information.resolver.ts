@@ -5,7 +5,6 @@ import { User } from 'src/user_information/entity/user_information.entity';
 import { UserOtherInformation } from 'src/user_information/entity/user_other_information.entity';
 import { UserPersonalInformation } from 'src/user_information/entity/user_personal_information.entity';
 import { QueryResult } from 'typeorm';
-import { UserTemp } from '../entity/ex.entity';
 import { GetUserOtherInformationArgs } from './argstype/userOtherInformation.argstype';
 import { UserInformationService } from './user_information.service';
 // interface args {
@@ -20,12 +19,6 @@ import { UserInformationService } from './user_information.service';
 @Resolver() //graphql에서 controler가 resolver
 export class UserInformationResolver {
   constructor(private readonly userService: UserInformationService) {}
-
-  @Query(() => UserTemp) //option
-  getUserTempById(@Args('id') id: string) {
-    // return "test";
-    return this.userService.getUserTempById();
-  }
 
   // twoJoin(){
   //   temp = await queryRunner.manager

@@ -6,7 +6,6 @@ import { UserOtherInformation } from 'src/user_information/entity/user_other_inf
 import { UserPersonalInformation } from 'src/user_information/entity/user_personal_information.entity';
 import { UserBlackhole } from 'src/user_status/entity/user_status.entity';
 import { createQueryBuilder, DataSource, Repository } from 'typeorm';
-import { UserTemp } from '../entity/ex.entity';
 
 @Injectable()
 export class UserInformationService {
@@ -21,14 +20,6 @@ export class UserInformationService {
     private userAccessCardRepository: Repository<UserAccessCardInformation>,
     private dataSource: DataSource,
   ) {}
-
-  getUserTempById(): UserTemp {
-    const temp = new UserTemp();
-    temp.email = 'enal';
-    temp.id = '####123';
-    temp.name = 'huchoi';
-    return temp;
-  }
 
   async getUserByhuchoi() {
     let temp = await this.userRepository.query(

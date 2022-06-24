@@ -39,12 +39,11 @@ export class UserInformationService {
         'blackhole.remaining_period > :period',
         { period: 90 },
       ) //오버로딩을 생각하자
-      .leftJoinAndSelect(
-      'user.userOtherInformation', 'user_other_information')
+      .leftJoinAndSelect('user.userOtherInformation', 'user_other_information')
       .getMany();
     console.log(temp);
-    
-    temp = this.userRepository.find({where:{intra_id:"hanchoi"}});
+
+    temp = this.userRepository.find({ where: { intra_id: 'hanchoi' } });
     return temp;
     return temp;
     await queryRunner.release();

@@ -23,13 +23,13 @@ import { typeORMConfig } from './config/typeorm.config';
       debug: false,
       playground: true,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
-      sortSchema: true
-      // include: [UserInformationModule, 
-      //   UserStatusModule, 
-      //   UserPaymentModule, 
+      sortSchema: true,
+      // include: [UserInformationModule,
+      //   UserStatusModule,
+      //   UserPaymentModule,
       //   UserJobModule]
     }),
-],
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

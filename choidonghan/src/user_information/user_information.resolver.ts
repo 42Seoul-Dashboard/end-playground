@@ -31,7 +31,7 @@ export class UserInformationResolver {
   //     ) //오버로딩을 생각하자
   //     .getMany();
   // }
-  
+
   // threeJoin(){
   //   while (i < table_Cnt)
   //   {
@@ -61,7 +61,7 @@ export class UserInformationResolver {
 
   @Query(() => [User])
   getUserById(@Args() args: GetUserOtherInformationArgs) {
-    const datee =  args.created_date
+    const datee = args.created_date;
     return this.userService.getUserByhuchoi();
   }
   @Query(() => [UserPersonalInformation])

@@ -11,11 +11,11 @@ import { UserAccessCardInformation } from 'src/user_information/entity/user_acce
 @Module({
   imports: [
     TypeOrmModule.forFeature([
-      User, 
-      UserPersonalInformation, 
+      User,
+      UserPersonalInformation,
       UserOtherInformation,
-      UserAccessCardInformation
-    ])
+      UserAccessCardInformation,
+    ]),
   ],
   controllers: [UserInformationController],
   providers: [UserInformationService, UserInformationResolver],

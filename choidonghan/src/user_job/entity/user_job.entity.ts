@@ -1,4 +1,4 @@
-import { Field, ObjectType } from "@nestjs/graphql";
+import { Field, Int, ObjectType } from "@nestjs/graphql";
 import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { User } from "../../user_information/entity/user_information.entity";
 
@@ -6,19 +6,19 @@ import { User } from "../../user_information/entity/user_information.entity";
 @ObjectType()
 @Entity()
 export class UserEmploymentAndFound extends BaseEntity {
-    @Field()
+    @Field(type => Int)
     @PrimaryGeneratedColumn({name: "pk"})
     pk: number
 
-    @Field()
+    @Field({ nullable: false, defaultValue: "N" })
     @Column({name: "employment", nullable: false, default: "N" })
     employment: string;
     
-    @Field()
+    @Field({ nullable: true })
     @Column({name: "employment_date", nullable: true })
     employment_date: Date;
 
-    @Field()
+    @Field({ nullable: true })
     @Column({name: "enterprise", nullable: true })
     enterprise: string;
 
@@ -38,31 +38,31 @@ export class UserInternStatus extends BaseEntity {
     @PrimaryGeneratedColumn({name: "pk"})
     pk: number
 
-    @Field()
+    @Field({ nullable: true })
     @Column({name: "start_intern_date", nullable: true })
     start_intern_date: number;
     
-    @Field()
+    @Field({ nullable: true })
     @Column({name: "end_intern_date", nullable: true})
     end_intern_date: number;
 
-    @Field()
+    @Field({ nullable: true })
     @Column({name: "enterprise", nullable: true })
     enterprise: Date;
 
-    @Field()
+    @Field({ nullable: true })
     @Column({name: "intern_part_of_job", nullable: true })
     intern_part_of_job: number;
 
-    @Field()
+    @Field({ nullable: true })
     @Column({name: "intern_blackhole", nullable: true })
     intern_blackhole: number;
 
-    @Field()
+    @Field({ nullable: true })
     @Column({name: "intern_blackhole_date", nullable: true })
     intern_blackhole_date: Date;
 
-    @Field()
+    @Field({ nullable: true })
     @Column({name: "intern_note", nullable: true })
     intern_note: number;
 
@@ -82,19 +82,19 @@ export class UserHrdNetUtilize extends BaseEntity {
     @PrimaryGeneratedColumn({name: "pk"})
     pk: number
 
-    @Field()
+    @Field({ nullable: false })
     @Column({name: "consent_to_provide_information", nullable: false, default: "N" })
     consent_to_provide_information: string;
     
-    @Field()
+    @Field({ nullable: true })
     @Column({name: "employment_insurance_date", nullable: true })
     employment_insurance_date: Date;
 
-    @Field()
+    @Field({ nullable: true })
     @Column({name: "enterprise_size", nullable: true })
     enterprise_size: string;
 
-    @Field()
+    @Field({ nullable: true })
     @Column({name: "enterprise", nullable: true })
     enterprise: string;
 
@@ -114,15 +114,15 @@ export class UserEmploymentStatus extends BaseEntity {
     @PrimaryGeneratedColumn({name: "pk"})
     pk: number
 
-    @Field()
+    @Field({ nullable: true })
     @Column({name: "emplyment_date", nullable: true })
     emplyment_date: Date;
     
-    @Field()
+    @Field({ nullable: true })
     @Column({name: "enterprise", nullable: true })
     enterprise: string;
 
-    @Field()
+    @Field({ nullable: false })
     @Column({name: "created_date", nullable: false })
     created_date: Date;
 

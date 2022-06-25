@@ -4,6 +4,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   OneToOne,
   PrimaryColumn,
 } from 'typeorm';
@@ -42,6 +43,7 @@ export class UserPersonalInformation {
   created_date: Date;
 
   @OneToOne(() => User, (user) => user.userPersonalInformation)
+  @JoinColumn()
   // @PrimaryColumn({name: "user"})
   user: User;
 }

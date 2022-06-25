@@ -40,31 +40,31 @@ export class User {
   @PrimaryColumn({ name: 'intra_no' })
   intra_no: number;
 
-  @Field()
+  // @Field()
   @Column({ name: 'intra_id', nullable: false, default: 'NOT_EXIST' })
   intra_id: string;
 
-  @Field()
+  // @Field()
   @Column({ name: 'name', nullable: false, default: 'NO_NAME' })
   name: string;
 
-  @Field()
+  // @Field()
   @Column({ name: 'grade', nullable: false, default: '0기' })
   grade: string;
 
-  @Field()
+  // @Field()
   @Column({ name: 'start_process', nullable: false, default: '9999-12-31' })
   start_process: Date;
 
-  @Field()
+  // @Field()
   @Column({ name: 'academic_state', nullable: false, default: 'BLACK_HOLE' })
   academic_state: string;
 
-  @Field()
+  // @Field()
   @Column({ name: 'coalition', nullable: true })
   coalition: string;
 
-  @Field()
+  // @Field()
   @CreateDateColumn({ name: 'create_date' })
   created_date: Date;
 
@@ -72,18 +72,21 @@ export class User {
    *               User               *
    ***********************************/
 
+  // @Field()
   @OneToOne(
     () => UserPersonalInformation,
     (userPersonalInformation) => userPersonalInformation.user,
   )
   userPersonalInformation: UserPersonalInformation;
 
+  // @Field(()=>UserAccessCardInformation)
   @OneToOne(
     () => UserAccessCardInformation,
     (userAccessCardInformation) => userAccessCardInformation.user,
   )
   userAccessCardInformation: UserAccessCardInformation;
 
+  // @Field((type) => [UserOtherInformation])
   @OneToMany(
     () => UserOtherInformation,
     (userOtherInformation) => userOtherInformation.user,
@@ -94,33 +97,39 @@ export class User {
    *             Academic             *
    ***********************************/
 
+  // @Field((type) => [UserLearningData])
   @OneToMany(
     () => UserLearningData,
     (userLearningDate) => userLearningDate.user,
   )
   userLearningDate: UserLearningData[];
 
+  // @Field((type) => [UserProcessProgress])
   @OneToMany(
     () => UserProcessProgress,
     (userProcessProgress) => userProcessProgress.user,
   )
   userProcessProgress: UserProcessProgress[];
 
+  // @Field((type) => [UserBlackhole])
   @OneToMany(() => UserBlackhole, (userBlackhole) => userBlackhole.user)
   userBlackhole: UserBlackhole[];
 
+  // @Field((type) => [UserLeaveOfAbsence])
   @OneToMany(
     () => UserLeaveOfAbsence,
     (userLeaveOfAbsence) => userLeaveOfAbsence.user,
   )
   userLeaveOfAbsence: UserLeaveOfAbsence[];
 
+  // @Field((type) => [UserReasonOfBreak])
   @OneToMany(
     () => UserReasonOfBreak,
     (userReasonOfBreak) => userReasonOfBreak.user,
   )
   userReasonOfBreak: UserReasonOfBreak[];
 
+  // @Field((type) => [UserLapiscineInformation])
   @OneToMany(
     () => UserLapiscineInformation,
     (userLapiscineInformation) => userLapiscineInformation.user,
@@ -131,12 +140,14 @@ export class User {
    *               Fund               *
    ***********************************/
 
+  // @Field((type) => [UserComputationFund])
   @OneToMany(
     () => UserComputationFund,
     (userComputationFund) => userComputationFund.user,
   )
   userComputationFund: UserComputationFund[];
 
+  // @Field((type) => [UserEducationFundState])
   @OneToMany(
     () => UserEducationFundState,
     (userEducationFundState) => userEducationFundState.user,
@@ -147,24 +158,28 @@ export class User {
    *              employ              *
    ***********************************/
 
+  // @Field((type) => [UserEmploymentAndFound])
   @OneToMany(
     () => UserEmploymentAndFound,
     (UserEmploymentAndFound) => UserEmploymentAndFound.user,
   )
   UserEmploymentAndFound: UserEmploymentAndFound[];
 
+  // @Field((type) => [UserInternStatus])
   @OneToMany(
     () => UserInternStatus,
     (userInternStatus) => userInternStatus.user,
   )
   userInternStatus: UserInternStatus[];
 
+  // @Field((type) => [UserHrdNetUtilize])
   @OneToMany(
     () => UserHrdNetUtilize,
     (userHrdNetUtilize) => userHrdNetUtilize.user,
   )
   userHrdNetUtilize: UserHrdNetUtilize[];
 
+  // @Field((type) => [UserEmploymentStatus])
   @OneToMany(
     () => UserEmploymentStatus,
     (userEmploymentStatus) => userEmploymentStatus.user,

@@ -5,7 +5,10 @@ import { User } from 'src/user_information/entity/user_information.entity';
 import { UserOtherInformation } from 'src/user_information/entity/user_other_information.entity';
 import { UserPersonalInformation } from 'src/user_information/entity/user_personal_information.entity';
 import { QueryResult } from 'typeorm';
+import { FilterArgs } from './argstype/filter.argstype';
 import { GetUserOtherInformationArgs } from './argstype/userOtherInformation.argstype';
+import { Filter } from './filter';
+import { JoinedTable } from './joinedTable';
 import { UserInformationService } from './user_information.service';
 // interface args {
 //     user:{
@@ -56,13 +59,12 @@ export class UserInformationResolver {
 
   @Query(() => [User])
   getUsers() {
-    return this.userService.getUserByhuchoi();
+    return this.userService.querySampel();
   }
 
   @Query(() => [User])
   getUserById(@Args() args: GetUserOtherInformationArgs) {
-    const datee = args.created_date;
-    return this.userService.getUserByhuchoi();
+    return this.userService.querySampel();
   }
   @Query(() => [UserPersonalInformation])
   getUserPersonalInformation() {
@@ -77,5 +79,30 @@ export class UserInformationResolver {
   @Query(() => [UserAccessCardInformation])
   getUserAccessCardInformation() {
     return this.userService.getUserAccessCardInformation();
+  }
+
+  @Query(() => [JoinedTable])
+  getFilter(@Args() filterArg: FilterArgs) {
+    // console.log(filterArg.filters);
+    // const temp = filterArg.filters['realFilters'];
+    // for (const i in temp) {
+    //   console.log('key', i);
+    //   console.log('value', temp[i]);
+    // }
+    // console.log('--------------------');
+    // const arr = [];
+    // arr.push(1);
+    // arr.push(2);
+    // arr.push(3);
+    // arr.push(4);
+    // for (const i in arr) {
+    //   console.log('key', i);
+    //   console.log('value', arr[i]);
+    // }
+    // const ret = new JoinedTable();
+    // ret.grade = '3기';
+    // ret.name = 'huchoi';
+    // return ret;
+    return this.userService.processFilters(filterArg.filters["realFilters"]);
   }
 }

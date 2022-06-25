@@ -4,6 +4,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   OneToOne,
   PrimaryColumn,
 } from 'typeorm';
@@ -44,5 +45,11 @@ export class UserAccessCardInformation extends BaseEntity {
   created_date: Date;
 
   @OneToOne(() => User, (user) => user.userAccessCardInformation)
+  @JoinColumn()
   user: User;
+}
+
+@ObjectType()
+export class IsWork {
+  id: string;
 }

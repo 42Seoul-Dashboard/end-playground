@@ -15,9 +15,9 @@ import { typeORMConfig } from './config/typeorm.config';
   imports: [
     TypeOrmModule.forRoot(typeORMConfig),
     UserInformationModule,
-    // UserJobModule,
-    // UserPaymentModule,
-    // UserStatusModule,
+    UserJobModule,
+    UserPaymentModule,
+    UserStatusModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       debug: false,

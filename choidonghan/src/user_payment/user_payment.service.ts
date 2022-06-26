@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import {
   UserComputationFund,
   UserEducationFundState,
@@ -8,8 +9,10 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class UserPaymentService {
   constructor(
-    private userComputationFund: Repository<UserComputationFund>,
-    private userEducationFundState: Repository<UserEducationFundState>,
+    @InjectRepository(UserComputationFund)
+    private readonly userComputationFund: Repository<UserComputationFund>,
+    @InjectRepository(UserEducationFundState)
+    private readonly userEducationFundState: Repository<UserEducationFundState>,
   ) {}
 
   async getUserComputationFund(): Promise<UserComputationFund[]> {

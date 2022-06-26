@@ -95,7 +95,7 @@ export class UserInformationService {
     const obj = this.getObj(filterObj);
     obj['cache'] = true;
     obj['order'] = { created_date: 'DESC' };
-    // console.log('OBJ is', obj);
+    console.log('OBJ is', obj);
     const ret = await this.dataSource.getRepository(User).find(obj);
     // console.log('RET is', ret);
     return ret;
@@ -198,7 +198,6 @@ export class UserInformationService {
     temp = await this.userRepository.find({
       relations: ['userOtherInformation', 'userPersonalInformation'],
     });
-    return temp;
     temp = await this.dataSource.getRepository(User).findBy({
       intra_no: LessThan(10), // column쪽(좌측)에 문자열 당연히 가능 // 우측엔 동적으로 함수 쓸수있는거 확인!
     });
@@ -211,9 +210,15 @@ export class UserInformationService {
         userAccessCardInformation: true,
       },
       where: {
-        userOtherInformation: {
-          pk: this.operatorToORMMethod('<=')(val),
-        },
+        userOtherInformation: [
+          // OR 처리할수 있는 실마리가 있음
+          {
+            pk: this.operatorToORMMethod('<=')(val),
+          },
+          {
+            major: '비전공',
+          },
+        ],
       },
     };
     temp = await this.dataSource.getRepository(User).find({

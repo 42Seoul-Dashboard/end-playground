@@ -10,52 +10,10 @@ import { GetUserOtherInformationArgs } from './argstype/userOtherInformation.arg
 import { Filter } from './filter';
 import { JoinedTable } from './joinedTable';
 import { UserInformationService } from './user_information.service';
-// interface args {
-//     user:{
-//         gender:'남'
-//     },
-//     lapici:{
-//         grade:'3'
-//     }
-// }
 
 @Resolver() //graphql에서 controler가 resolver
 export class UserInformationResolver {
   constructor(private readonly userService: UserInformationService) {}
-
-  // twoJoin(){
-  //   temp = await queryRunner.manager
-  //     .createQueryBuilder(User, 'user')
-  //     .leftJoinAndSelect(
-  //       'user.userBlackhole',
-  //       'blackhole', //innerJoinAndSelect가 outetJoin인듯?
-  //       'blackhole.remaining_period > :period',
-  //       { period: 90 },
-  //     ) //오버로딩을 생각하자
-  //     .getMany();
-  // }
-
-  // threeJoin(){
-  //   while (i < table_Cnt)
-  //   {
-  //       table = parsing
-  //       temp = await queryRunner.manager
-  //     .createQueryBuilder(User, 'user')
-  //     .leftJoinAndSelect(
-  //       'user.userBlackhole',
-  //       'blackhole', //innerJoinAndSelect가 outetJoin인듯?
-  //       'blackhole.remaining_period > :period',
-  //       { period: 90 },
-  //     )
-  //     } //오버로딩을 생각하자
-  //     .leftJoinAndSelect(
-  //       'user.userBlackhole',
-  //       'blackhole', //innerJoinAndSelect가 outetJoin인듯?
-  //       'blackhole.remaining_period > :period',
-  //       { period: 90 },
-  //     ) //오버로딩을 생각하자
-  //     .getMany();
-  // }
 
   @Query(() => [User])
   getUsers() {
@@ -63,7 +21,7 @@ export class UserInformationResolver {
   }
 
   @Query(() => [User])
-  getUserById(@Args() args: GetUserOtherInformationArgs) {
+  getUserById() {
     return this.userService.querySampel();
   }
   @Query(() => [UserPersonalInformation])
@@ -72,7 +30,7 @@ export class UserInformationResolver {
   }
 
   @Query(() => [UserOtherInformation])
-  getUserOtherInformation() {
+  getUserOtherInformation(@Args() args: GetUserOtherInformationArgs) {
     return this.userService.getUserOtherInformation();
   }
 
@@ -103,6 +61,6 @@ export class UserInformationResolver {
     // ret.grade = '3기';
     // ret.name = 'huchoi';
     // return ret;
-    return this.userService.processFilters(filterArg.filters["realFilters"]);
+    return this.userService.processFilters(filterArg.filters['realFilters']);
   }
 }

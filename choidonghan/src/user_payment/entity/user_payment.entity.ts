@@ -29,7 +29,7 @@ export class UserComputationFund extends BaseEntity {
   @Column({ name: 'received_fund', nullable: false, default: 'N' })
   majoreceived_fundr_field: string;
 
-  @Field({ nullable: false })
+  @Field((type) => Int, { nullable: false })
   @Column({ name: 'recevied_grant_amount', nullable: false, default: 0 })
   recevied_grant_amount: number;
 
@@ -49,15 +49,15 @@ export class UserComputationFund extends BaseEntity {
 @ObjectType()
 @Entity()
 export class UserEducationFundState extends BaseEntity {
-  @Field({ nullable: false })
+  @Field((type) => Int, { nullable: false })
   @PrimaryGeneratedColumn({ name: 'pk' })
   pk: number;
 
-  @Field({ nullable: false })
+  @Field((type) => Int, { nullable: false })
   @Column({ name: 'total_payment_of_number', nullable: false, default: 0 })
   total_payment_of_number: number;
 
-  @Field({ nullable: false })
+  @Field((type) => Int, { nullable: false })
   @Column({ name: 'total_payment_of_money', nullable: false, default: 0 })
   total_payment_of_money: number;
 
@@ -65,11 +65,11 @@ export class UserEducationFundState extends BaseEntity {
   @Column({ name: 'fund_period', nullable: true })
   fund_period: Date;
 
-  @Field({ nullable: true })
+  @Field((type) => Int, { nullable: true })
   @Column({ name: 'remaining_period_of_fund', nullable: true })
   remaining_period_of_fund: number;
 
-  @Field({ nullable: false })
+  @Field((type) => Int, { nullable: false })
   @Column({ name: 'total_calculated_month', nullable: false, default: 0 })
   total_calculated_month: number;
 
@@ -77,7 +77,7 @@ export class UserEducationFundState extends BaseEntity {
   @Column({ name: 'payment_give_start_date', nullable: true })
   payment_give_start_date: Date;
 
-  @Field({ nullable: true })
+  @Field((type) => Int, { nullable: true })
   @Column({ name: 'payment_delay_period', nullable: true })
   payment_delay_period: number;
 

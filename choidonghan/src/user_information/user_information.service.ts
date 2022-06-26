@@ -31,6 +31,7 @@ import { Filter } from './filter';
 @Injectable()
 export class UserInformationService {
   private operatorToMethod;
+
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
@@ -50,9 +51,89 @@ export class UserInformationService {
     this.operatorToMethod['='] = Equal;
     this.operatorToMethod['!='] = Not;
     this.operatorToMethod['Like'] = Like;
-    this.operatorToMethod['Ilike'] = ILike;
+    this.operatorToMethod['ILike'] = ILike;
     this.operatorToMethod['In'] = In;
     this.operatorToMethod['Any'] = Any;
+  }
+
+  async getUserPersonalInformation() {
+    return await this.userPersonalRepository.find({});
+  }
+  async getUserOtherInformation() {
+    return await this.userOtherRepository.find({});
+  }
+  async getUserAccessCardInformation() {
+    return await this.userAccessCardRepository.find({});
+  }
+
+  private camelize(str) {
+    return str
+      .replace(/(?:^\w|[A-Z]|\b\w)/g, function (word, index) {
+        return index === 0 ? word.toLowerCase() : word.toUpperCase();
+      })
+      .replace(/\s+/g, '');
+  }
+
+  async processFilters(filters) {
+    // console.log(filters);
+    let numOfEntity = 1;
+    const filterObj = {};
+    for (let i = 0; i < filters.length; i++) {
+      if (filters[i].entityName in filterObj) {
+        filterObj[filters[i].entityName].push(filters[i]);
+      } else {
+        numOfEntity++;
+        filterObj[filters[i].entityName] = []; //array
+        filterObj[filters[i].entityName].push(filters[i]);
+      }
+    }
+    return this.joinTableByCondition(numOfEntity, filterObj);
+  }
+
+  private async joinTableByCondition(numOfEntity: number, filterObj) {
+    // console.log(filterObj);
+    const obj = this.getObj(filterObj);
+    obj['cache'] = true;
+    obj['order'] = { created_date: 'DESC' };
+    // console.log('OBJ is', obj);
+    const ret = await this.dataSource.getRepository(User).find(obj);
+    // console.log('RET is', ret);
+    return ret;
+  }
+
+  private getObj(filterObj) {
+    const ret = {};
+    ret['relations'] = {};
+    ret['where'] = {};
+    if ('user' in filterObj) {
+      for (const idx in filterObj['user']) {
+        // console.log("filterObj['user'][idx]: ", filterObj['user'][idx]);
+        if (filterObj['user'][idx]['column'] == null) continue;
+        ret['where'][filterObj['user'][idx]['column']] =
+          this.operatorToORMMethod(filterObj['user'][idx]['operator'])(
+            filterObj['user'][idx]['givenValue'],
+          );
+      }
+    }
+    for (const entityName in filterObj) {
+      // console.log('문제발생!!! entityname: ', entityName);
+      if (entityName == 'user') continue;
+      ret['relations'][entityName] = true;
+      ret['where'][entityName] = {};
+      for (const idx in filterObj[entityName]) {
+        // console.log('idx is ',idx,'filterObj[entityName] is ',filterObj[entityName][idx],);
+        if (filterObj[entityName][idx]['column'] == null) continue;
+        ret['where'][entityName][filterObj[entityName][idx]['column']] =
+          this.operatorToORMMethod(filterObj[entityName][idx]['operator'])(
+            filterObj[entityName][idx]['givenValue'],
+          );
+      }
+    }
+    return ret;
+  }
+
+  private operatorToORMMethod(operator: string) {
+    return this.operatorToMethod[operator];
   }
 
   async querySampel() {
@@ -83,54 +164,6 @@ export class UserInformationService {
 
     temp = this.userRepository.find({ where: { intra_id: 'hanchoi' } });
     return temp;
-  }
-  async getUserPersonalInformation() {
-    return await this.userPersonalRepository.find({});
-  }
-  async getUserOtherInformation() {
-    return await this.userOtherRepository.find({});
-  }
-  async getUserAccessCardInformation() {
-    return await this.userAccessCardRepository.find({});
-  }
-
-  camelize(str) {
-    return str
-      .replace(/(?:^\w|[A-Z]|\b\w)/g, function (word, index) {
-        return index === 0 ? word.toLowerCase() : word.toUpperCase();
-      })
-      .replace(/\s+/g, '');
-  }
-
-  async makeArguments(entityName: string, arr) {
-    const ret = [];
-    ret[0] = `user.${entityName}`;
-    ret[1] = entityName
-      .replace(/\.?([A-Z]+)/g, function (_x, y) {
-        return '_' + y.toLowerCase();
-      })
-      .replace(/^_/, '');
-    ret[2] = new String();
-    for (let i = 0; i < arr.length; i++) {
-      if (i != 0) ret[2] += ' AND ';
-      ret[2] += `${ret[1]}.`;
-      ret[2] += `${arr[i].column}`;
-      if (arr[i].operator == 'eq') ret[2] += ' = ';
-      else if (arr[i].operator == 'gt') ret[2] += ' > ';
-      else console.log('\n\n\nERROR in makeArguments function\n\n\n');
-      ret[2] += `${arr[i].value}`;
-    }
-    console.log(ret);
-    return ret;
-  }
-
-  func1() {
-    return LessThanOrEqual;
-    return LessThan;
-    return Equal;
-    return MoreThanOrEqual;
-    return MoreThan;
-    return;
   }
 
   async towJoin(obj, tableCount) {
@@ -179,7 +212,7 @@ export class UserInformationService {
       },
       where: {
         userOtherInformation: {
-          pk: this.operatorToOrmMethod('<=')(val),
+          pk: this.operatorToORMMethod('<=')(val),
         },
       },
     };
@@ -201,69 +234,25 @@ export class UserInformationService {
     return temp;
   }
 
-  async processFilters(filters) {
-    // console.log(filters);
-    let numOfEntity = 1;
-    const filterObj = {};
-    for (let i = 0; i < filters.length; i++) {
-      if (filters[i].entityName in filterObj) {
-        filterObj[filters[i].entityName].push(filters[i]);
-      } else {
-        numOfEntity++;
-        filterObj[filters[i].entityName] = []; //array
-        filterObj[filters[i].entityName].push(filters[i]);
-      }
+  async makeArguments(entityName: string, arr) {
+    const ret = [];
+    ret[0] = `user.${entityName}`;
+    ret[1] = entityName
+      .replace(/\.?([A-Z]+)/g, function (_x, y) {
+        return '_' + y.toLowerCase();
+      })
+      .replace(/^_/, '');
+    ret[2] = new String();
+    for (let i = 0; i < arr.length; i++) {
+      if (i != 0) ret[2] += ' AND ';
+      ret[2] += `${ret[1]}.`;
+      ret[2] += `${arr[i].column}`;
+      if (arr[i].operator == 'eq') ret[2] += ' = ';
+      else if (arr[i].operator == 'gt') ret[2] += ' > ';
+      else console.log('\n\n\nERROR in makeArguments function\n\n\n');
+      ret[2] += `${arr[i].value}`;
     }
-    return this.joinTableByCondition(numOfEntity, filterObj);
-  }
-
-  private async joinTableByCondition(numOfEntity: number, filterObj) {
-    // console.log(filterObj);
-
-    const obj = this.getObj(filterObj);
-    obj['cache'] = true;
-    obj['order'] = { created_date: 'DESC' };
-    console.log('OBJ is', obj);
-    const ret = await this.dataSource.getRepository(User).find(obj);
-    console.log('RET is', ret);
+    console.log(ret);
     return ret;
-  }
-
-  private getObj(filterObj) {
-    const ret = {};
-    ret['relations'] = {};
-    ret['where'] = {};
-    if ('user' in filterObj) {
-      for (const idx in filterObj['user']) {
-        console.log("filterObj['user'][idx]: ", filterObj['user'][idx]);
-        ret['where'][filterObj['user'][idx]['column']] =
-          this.operatorToOrmMethod(filterObj['user'][idx]['operator'])(
-            filterObj['user'][idx]['givenValue'],
-          );
-      }
-    }
-    for (const entityName in filterObj) {
-      console.log('문제발생!!! entityname: ', entityName);
-      if (entityName == 'user') continue;
-      ret['relations'][entityName] = true;
-      ret['where'][entityName] = {};
-      for (const idx in filterObj[entityName]) {
-        console.log(
-          'idx is ',
-          idx,
-          'filterObj[entityName] is ',
-          filterObj[entityName][idx],
-        );
-        ret['where'][entityName][filterObj[entityName][idx]['column']] =
-          this.operatorToOrmMethod(filterObj[entityName][idx]['operator'])(
-            filterObj[entityName][idx]['givenValue'],
-          );
-      }
-    }
-    return ret;
-  }
-
-  private operatorToOrmMethod(operator: string) {
-    return this.operatorToMethod[operator];
   }
 }

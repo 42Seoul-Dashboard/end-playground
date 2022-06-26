@@ -9,12 +9,12 @@ import {
 export class UserPaymentResolver {
   constructor(private readonly userPaymentService: UserPaymentService) {}
 
-  @Query(() => UserComputationFund)
+  @Query(() => [UserComputationFund])
   getUserComputationFund(): Promise<UserComputationFund[]> {
     return this.userPaymentService.getUserComputationFund();
   }
 
-  @Query(() => UserEducationFundState)
+  @Query(() => [UserEducationFundState])
   getUserInternStatus(): Promise<UserEducationFundState[]> {
     return this.userPaymentService.geUserEducationFundState();
   }

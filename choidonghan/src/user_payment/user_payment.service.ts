@@ -13,10 +13,10 @@ export class UserPaymentService {
   ) {}
 
   async getUserComputationFund(): Promise<UserComputationFund[]> {
-    return await this.userComputationFund.find();
+    return await this.userComputationFund.find({});
   }
 
   async geUserEducationFundState(): Promise<UserEducationFundState[]> {
-    return await this.userEducationFundState.find();
+    return await this.userEducationFundState.find({});
   }
 }

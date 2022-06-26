@@ -7,4 +7,6 @@ export class FilterArgs {
   @Field((type) => GraphQLJSON)
   filters: JSON;
 
+  // @Field((type) => [Filter]) 에러발생
+  // filters2: Filter[];
 }

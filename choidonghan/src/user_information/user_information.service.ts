@@ -180,6 +180,7 @@ export class UserInformationService {
   //--------------------------------------------------
   //      아래 부분은 안보셔도 됩니다. 실습용 테스트 코드.       |
   //--------------------------------------------------
+
   async querySampel() {
     let temp = await this.userRepository.query(
       `SELECT * FROM user NATURAL JOIN user_blackhole`,

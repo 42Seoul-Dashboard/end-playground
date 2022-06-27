@@ -21,9 +21,21 @@ type JoinedTable {
   intra_no: Int!
   name: String!
   start_process: DateTime!
-  userAccessCardInformation: [UserAccessCardInformation!]!
+  userAccessCardInformation: UserAccessCardInformation!
+  userBlackhole: [UserBlackhole!]!
+  userComputationFund: [UserComputationFund!]!
+  userEducationFundState: [UserEducationFundState!]!
+  userEmploymentAndFound: [UserEmploymentAndFound!]!
+  userEmploymentStatus: [UserEmploymentStatus!]!
+  userHrdNetUtilize: [UserHrdNetUtilize!]!
+  userInternStatus: [UserInternStatus!]!
+  userLapiscineInformation: [UserLapiscineInformation!]!
+  userLearningData: [UserLearningData!]!
+  userLeaveOfAbsence: [UserLeaveOfAbsence!]!
   userOtherInformation: [UserOtherInformation!]!
   userPersonalInformation: UserPersonalInformation!
+  userProcessProgress: [UserProcessProgress!]!
+  userReasonOfBreak: [UserReasonOfBreak!]!
 }
 
 type Query {
@@ -131,6 +143,14 @@ type UserInternStatus {
   intern_part_of_job: Float
   pk: Float!
   start_intern_date: Float
+}
+
+type UserLapiscineInformation {
+  lapiscine_degree: Float!
+  lapiscine_grade: Float
+  number_of_rapicin_participation: String
+  participate_lapicin: String
+  pk: Float!
 }
 
 type UserLearningData {

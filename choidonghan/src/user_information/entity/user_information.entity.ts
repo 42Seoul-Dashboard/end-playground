@@ -32,6 +32,7 @@ import { UserAccessCardInformation } from './user_access_card_information.entity
 import { UserOtherInformation } from './user_other_information.entity';
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 
+//인덱스
 //유저
 @ObjectType()
 @Entity()
@@ -40,31 +41,31 @@ export class User {
   @PrimaryColumn({ name: 'intra_no' })
   intra_no: number;
 
-  // @Field()
+  @Field()
   @Column({ name: 'intra_id', nullable: false, default: 'NOT_EXIST' })
   intra_id: string;
 
-  // @Field()
+  @Field()
   @Column({ name: 'name', nullable: false, default: 'NO_NAME' })
   name: string;
 
-  // @Field()
+  @Field()
   @Column({ name: 'grade', nullable: false, default: '0기' })
   grade: string;
 
-  // @Field()
+  @Field()
   @Column({ name: 'start_process', nullable: false, default: '9999-12-31' })
   start_process: Date;
 
-  // @Field()
+  @Field()
   @Column({ name: 'academic_state', nullable: false, default: 'BLACK_HOLE' })
   academic_state: string;
 
-  // @Field()
+  @Field()
   @Column({ name: 'coalition', nullable: true })
   coalition: string;
 
-  // @Field()
+  @Field()
   @CreateDateColumn({ name: 'create_date' })
   created_date: Date;
 

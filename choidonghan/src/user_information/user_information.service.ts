@@ -17,7 +17,7 @@ import {
   MoreThanOrEqual,
   Not,
   Like, //
-  ILike, //대소문자 don't care
+  ILike, //대소문자 구별 안함
   Between, //(ref: https://makand.tistory.com/entry/SQL-BETWEEN-%EA%B5%AC%EB%AC%B8)
   In, //(ref: https://kchanguk.tistory.com/119)
   Any, //In보다 더 많은 기능을 제공 (ref: https://carami.tistory.com/18)
@@ -74,59 +74,100 @@ export class UserInformationService {
       .replace(/\s+/g, '');
   }
 
+  /**
+   * 아래 processFilters()함수에서 만드는 filterObj의 구조
+   *    {
+   *      엔터티:[filter객체, filter객체...],
+   *      엔터티:[filter객체, filter객체...]
+   *    }
+   * 예시
+   *
+   *    {
+   *      User:[{entityName:User, column:"intra_no", operaotr:"<=", givenValue:"10"}, {...}, {...}]
+   *      UserPersonalInformation:[{entityName:UserPersonalInformation, column:"gender", operaotr:"=", givenValue:"남"}, {...}, {...}]
+   *    }
+   */
+
   async processFilters(filters) {
     // console.log(filters);
-    let numOfEntity = 1;
+    let filter;
+    let entityName;
+    let numOfEntity = 1; //entity의 개수(user는 무조건 쓰니까 initialValue = 1)
     const filterObj = {};
+
     for (let i = 0; i < filters.length; i++) {
-      if (filters[i].entityName in filterObj) {
-        filterObj[filters[i].entityName].push(filters[i]);
+      filter = filters[i]; // filter 하나
+      entityName = filter.entityName;
+      if (entityName in filterObj) {
+        // filterObj에 이미 해당 entityName이 있음
+        filterObj[entityName].push(filter);
       } else {
+        //filterObj에 해당 entityName이 없음
         numOfEntity++;
-        filterObj[filters[i].entityName] = []; //array
-        filterObj[filters[i].entityName].push(filters[i]);
+        filterObj[entityName] = []; //해당 entity에 대해 필터조건이 여러개 있을수 있으니
+        filterObj[entityName].push(filter); //필터조건(들)을 배열 넣어둠
       }
     }
-    return this.joinTableByCondition(numOfEntity, filterObj);
+    return this.joinTableByCondition(filterObj); //numOFEntity 값을 사용하지는 않지만 일단 넣어두었음
   }
 
-  private async joinTableByCondition(numOfEntity: number, filterObj) {
+  private async joinTableByCondition(filterObj) {
     // console.log(filterObj);
     const obj = this.getObj(filterObj);
-    obj['cache'] = true;
+    obj['cache'] = true; //typeORM에서 제공하는 cache 기능
     obj['order'] = { created_date: 'DESC' };
     console.log('OBJ is', obj);
     const ret = await this.dataSource.getRepository(User).find(obj);
     // console.log('RET is', ret);
     return ret;
   }
+  /**
+   * getObj 함수에서 반환하는 객체의 구조 예시
+   *    {
+   *      relation:{
+   *        UserOtherInformation: true,
+   *        UserPersonalInformation: true,
+   *      },
+   *      where:{
+   *        intra_id:LessThan(100),
+   *        userPersonalInformation:{
+   *          gender: "남"
+   *        },
+   *        userOtherInformation:{
+   *          major: Equal("비전공")
+   *        },
+   *      }
+   *    }
+   */
 
   private getObj(filterObj) {
+    let filter;
+    let column;
     const ret = {};
     ret['relations'] = {};
     ret['where'] = {};
+
     if ('user' in filterObj) {
       for (const idx in filterObj['user']) {
-        // console.log("filterObj['user'][idx]: ", filterObj['user'][idx]);
-        if (filterObj['user'][idx]['column'] == null) continue;
-        ret['where'][filterObj['user'][idx]['column']] =
-          this.operatorToORMMethod(filterObj['user'][idx]['operator'])(
-            filterObj['user'][idx]['givenValue'],
-          );
+        filter = filterObj['user'][idx];
+        column = filter['column'];
+        if (column == null) continue; // 예외처리
+        ret['where'][column] = this.operatorToORMMethod(filter['operator'])(
+          filter['givenValue'],
+        ); //overwrite issue 발생가능(명세서에 적어줘야함)
       }
     }
     for (const entityName in filterObj) {
-      // console.log('문제발생!!! entityname: ', entityName);
-      if (entityName == 'user') continue;
+      if (entityName == 'user') continue; // user는 이미 위의 for문에서 처리
       ret['relations'][entityName] = true;
       ret['where'][entityName] = {};
       for (const idx in filterObj[entityName]) {
-        // console.log('idx is ',idx,'filterObj[entityName] is ',filterObj[entityName][idx],);
-        if (filterObj[entityName][idx]['column'] == null) continue;
-        ret['where'][entityName][filterObj[entityName][idx]['column']] =
-          this.operatorToORMMethod(filterObj[entityName][idx]['operator'])(
-            filterObj[entityName][idx]['givenValue'],
-          );
+        filter = filterObj[entityName][idx];
+        column = filter['column'];
+        if (column == null) continue;
+        ret['where'][entityName][column] = this.operatorToORMMethod(
+          filter['operator'],
+        )(filter['givenValue']); //overwrite issue 발생가능(명세서에 적어줘야함)
       }
     }
     return ret;
@@ -136,6 +177,9 @@ export class UserInformationService {
     return this.operatorToMethod[operator];
   }
 
+  //--------------------------------------------------
+  //      아래 부분은 안보셔도 됩니다. 실습용 테스트 코드.       |
+  //--------------------------------------------------
   async querySampel() {
     let temp = await this.userRepository.query(
       `SELECT * FROM user NATURAL JOIN user_blackhole`,
@@ -151,7 +195,7 @@ export class UserInformationService {
         'blackhole', //innerJoin == Join인듯?
         'blackhole.remaining_period > :period AND blackhole.remaining_period > 0',
         { period: 90 },
-      ) //오버로딩을 생각하자
+      ) //오버로딩
       .leftJoinAndSelect('user.userOtherInformation', 'user_other_information')
       .getMany();
     await queryRunner.release();

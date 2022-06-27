@@ -46,7 +46,14 @@ type Query {
 }
 
 type User {
+  academic_state: String!
+  coalition: String!
+  created_date: DateTime!
+  grade: String!
+  intra_id: String!
   intra_no: Int!
+  name: String!
+  start_process: DateTime!
 }
 
 type UserAccessCardInformation {
@@ -149,7 +156,7 @@ type UserOtherInformation {
   highest_level_of_education: String!
   major: String!
   major_field: String!
-  major_name: DateTime!
+  major_name: String!
   period_of_software_learning: Int!
   pk: Int!
 }

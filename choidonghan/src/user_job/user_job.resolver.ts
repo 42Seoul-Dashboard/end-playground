@@ -1,6 +1,5 @@
 import { Query } from '@nestjs/graphql';
 import { Resolver } from '@nestjs/graphql';
-import { UserEducationFundState } from 'src/user_payment/entity/user_payment.entity';
 import {
   UserEmploymentAndFound,
   UserEmploymentStatus,

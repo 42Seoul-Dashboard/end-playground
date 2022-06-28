@@ -23,14 +23,13 @@ import {
   UserHrdNetUtilize,
   UserInternStatus,
 } from '../../user_job/entity/user_job.entity';
-import {
-  UserComputationFund,
-  UserEducationFundState,
-} from '../../user_payment/entity/user_payment.entity';
+
 import { UserPersonalInformation } from './user_personal_information.entity';
 import { UserAccessCardInformation } from './user_access_card_information.entity';
 import { UserOtherInformation } from './user_other_information.entity';
 import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { UserComputationFund } from 'src/user_payment/entity/user_computation_fund.entity';
+import { UserEducationFundState } from 'src/user_payment/entity/user_education_fund_state.entity';
 
 //인덱스
 //유저

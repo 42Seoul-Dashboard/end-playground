@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserEducationFundState } from 'src/user_payment/entity/user_payment.entity';
 import { Repository } from 'typeorm';
 import {
   UserEmploymentAndFound,

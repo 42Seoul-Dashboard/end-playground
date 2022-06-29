@@ -18,78 +18,78 @@ import {
   UserReasonOfBreak,
 } from 'src/user_status/entity/user_status.entity';
 import { Entity } from 'typeorm';
-import { UserAccessCardInformation } from './entity/user_access_card_information.entity';
-import { UserOtherInformation } from './entity/user_other_information.entity';
-import { UserPersonalInformation } from './entity/user_personal_information.entity';
+import { UserAccessCardInformation } from '../entity/user_access_card_information.entity';
+import { UserOtherInformation } from '../entity/user_other_information.entity';
+import { UserPersonalInformation } from '../entity/user_personal_information.entity';
 
 @ObjectType('JoinedTable')
 export class JoinedTable {
   @Field((type) => Int)
   intra_no: number;
 
-  @Field()
+  @Field({ nullable: true })
   intra_id: string;
 
-  @Field()
+  @Field({ nullable: true })
   name: string;
 
-  @Field()
+  @Field({ nullable: true })
   grade: string;
 
-  @Field()
+  @Field({ nullable: true })
   start_process: Date;
 
-  @Field()
+  @Field({ nullable: true })
   academic_state: string;
 
-  @Field()
+  @Field({ nullable: true })
   coalition: string;
 
-  @Field()
+  @Field({ nullable: true })
   created_date: Date;
 
-  @Field((type) => [UserOtherInformation])
+  @Field((type) => [UserOtherInformation], { nullable: true })
   userOtherInformation: UserOtherInformation[];
 
-  @Field((type) => UserPersonalInformation)
+  @Field((type) => UserPersonalInformation, { nullable: true })
   userPersonalInformation: UserPersonalInformation; //일대일 이니까
 
-  @Field((type) => UserAccessCardInformation)
+  @Field((type) => UserAccessCardInformation, { nullable: true })
   userAccessCardInformation: UserAccessCardInformation; //일대일 이니까
 
-  @Field((type) => [UserEmploymentAndFound])
+  @Field((type) => [UserEmploymentAndFound], { nullable: true })
   userEmploymentAndFound: UserEmploymentAndFound[];
 
-  @Field((type) => [UserInternStatus])
+  @Field((type) => [UserInternStatus], { nullable: true })
   userInternStatus: UserInternStatus[];
 
-  @Field((type) => [UserHrdNetUtilize])
+  @Field((type) => [UserHrdNetUtilize], { nullable: true })
   userHrdNetUtilize: UserHrdNetUtilize[];
 
-  @Field((type) => [UserEmploymentStatus])
+  @Field((type) => [UserEmploymentStatus], { nullable: true })
   userEmploymentStatus: UserEmploymentStatus[];
 
-  @Field((type) => [UserComputationFund])
+  @Field((type) => [UserComputationFund], { nullable: true })
   userComputationFund: UserComputationFund[];
 
-  @Field((type) => [UserEducationFundState])
+  @Field((type) => [UserEducationFundState], { nullable: true })
   userEducationFundState: UserEducationFundState[];
 
-  @Field((type) => [UserLearningData])
+  @Field((type) => [UserLearningData], { nullable: true })
   userLearningData: UserLearningData[];
 
-  @Field((type) => [UserProcessProgress])
+  @Field((type) => [UserProcessProgress], { nullable: true })
   userProcessProgress: UserProcessProgress[];
 
-  @Field((type) => [UserBlackhole])
+  @Field((type) => [UserBlackhole], { nullable: true })
   userBlackhole: UserBlackhole[];
 
-  @Field((type) => [UserLeaveOfAbsence])
+  @Field((type) => [UserLeaveOfAbsence], { nullable: true })
   userLeaveOfAbsence: UserLeaveOfAbsence[];
 
-  @Field((type) => [UserReasonOfBreak])
+  @Field((type) => [UserReasonOfBreak], { nullable: true })
   userReasonOfBreak: UserReasonOfBreak[];
 
-  @Field((type) => [UserLapiscineInformation])
+  @Field((type) => [UserLapiscineInformation], { nullable: true })
   userLapiscineInformation: UserLapiscineInformation[];
 }

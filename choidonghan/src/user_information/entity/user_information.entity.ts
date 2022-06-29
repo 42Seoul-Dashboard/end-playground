@@ -66,8 +66,14 @@ export class User {
   coalition: string;
 
   @Field()
-  @CreateDateColumn({ name: 'create_date' })
+  @CreateDateColumn({ name: 'created_date' })
   created_date: Date;
+
+  // @Field()
+  // vailidated_date;
+
+  // @Field()
+  // expired_date;
 
   /***********************************
    *               User               *

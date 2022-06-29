@@ -8,7 +8,7 @@ import { QueryResult } from 'typeorm';
 import { FilterArgs } from './argstype/filter.argstype';
 import { GetUserOtherInformationArgs } from './argstype/userOtherInformation.argstype';
 import { Filter } from './filter';
-import { JoinedTable } from './joinedTable';
+import { JoinedTable } from './argstype/joinedTable';
 import { UserInformationService } from './user_information.service';
 
 @Resolver() //graphql에서 controler가 resolver
@@ -16,7 +16,7 @@ export class UserInformationResolver {
   constructor(private readonly userService: UserInformationService) {}
 
   @Query(() => [User])
-  getUsers() {
+  getUsers(@Args() arg: Filter) {
     return this.userService.querySampel();
   }
 
@@ -41,26 +41,8 @@ export class UserInformationResolver {
 
   @Query(() => [JoinedTable])
   getFilter(@Args() filterArg: FilterArgs) {
-    // console.log(filterArg.filters);
-    // const temp = filterArg.filters['realFilters'];
-    // for (const i in temp) {
-    //   console.log('key', i);
-    //   console.log('value', temp[i]);
-    // }
-    // console.log('--------------------');
-    // const arr = [];
-    // arr.push(1);
-    // arr.push(2);
-    // arr.push(3);
-    // arr.push(4);
-    // for (const i in arr) {
-    //   console.log('key', i);
-    //   console.log('value', arr[i]);
-    // }
-    // const ret = new JoinedTable();
-    // ret.grade = '3기';
-    // ret.name = 'huchoi';
-    // return ret;
+    // console.log(filterArg);
+    // return;
     return this.userService.processFilters(filterArg.filters['realFilters']);
   }
 }

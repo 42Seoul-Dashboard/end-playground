@@ -13,29 +13,29 @@ The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://
 scalar JSON
 
 type JoinedTable {
-  academic_state: String!
-  coalition: String!
-  created_date: DateTime!
-  grade: String!
-  intra_id: String!
+  academic_state: String
+  coalition: String
+  created_date: DateTime
+  grade: String
+  intra_id: String
   intra_no: Int!
-  name: String!
-  start_process: DateTime!
-  userAccessCardInformation: UserAccessCardInformation!
-  userBlackhole: [UserBlackhole!]!
-  userComputationFund: [UserComputationFund!]!
-  userEducationFundState: [UserEducationFundState!]!
-  userEmploymentAndFound: [UserEmploymentAndFound!]!
-  userEmploymentStatus: [UserEmploymentStatus!]!
-  userHrdNetUtilize: [UserHrdNetUtilize!]!
-  userInternStatus: [UserInternStatus!]!
-  userLapiscineInformation: [UserLapiscineInformation!]!
-  userLearningData: [UserLearningData!]!
-  userLeaveOfAbsence: [UserLeaveOfAbsence!]!
-  userOtherInformation: [UserOtherInformation!]!
-  userPersonalInformation: UserPersonalInformation!
-  userProcessProgress: [UserProcessProgress!]!
-  userReasonOfBreak: [UserReasonOfBreak!]!
+  name: String
+  start_process: DateTime
+  userAccessCardInformation: UserAccessCardInformation
+  userBlackhole: [UserBlackhole!]
+  userComputationFund: [UserComputationFund!]
+  userEducationFundState: [UserEducationFundState!]
+  userEmploymentAndFound: [UserEmploymentAndFound!]
+  userEmploymentStatus: [UserEmploymentStatus!]
+  userHrdNetUtilize: [UserHrdNetUtilize!]
+  userInternStatus: [UserInternStatus!]
+  userLapiscineInformation: [UserLapiscineInformation!]
+  userLearningData: [UserLearningData!]
+  userLeaveOfAbsence: [UserLeaveOfAbsence!]
+  userOtherInformation: [UserOtherInformation!]
+  userPersonalInformation: UserPersonalInformation
+  userProcessProgress: [UserProcessProgress!]
+  userReasonOfBreak: [UserReasonOfBreak!]
 }
 
 type Query {
@@ -54,7 +54,7 @@ type Query {
   getUserPersonalInformation: [UserPersonalInformation!]!
   getUserProcessProgress: [UserProcessProgress!]!
   getUserReasonOfBreak: UserReasonOfBreak!
-  getUsers: [User!]!
+  getUsers(column: String!, entityName: String!, givenValue: String!, log: Boolean!, operator: String!): [User!]!
 }
 
 type User {

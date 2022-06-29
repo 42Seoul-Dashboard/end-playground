@@ -1,9 +1,7 @@
 import { Query, Resolver } from '@nestjs/graphql';
+import { UserComputationFund } from './entity/user_computation_fund.entity';
+import { UserEducationFundState } from './entity/user_education_fund_state.entity';
 import { UserPaymentService } from './user_payment.service';
-import {
-  UserComputationFund,
-  UserEducationFundState,
-} from 'src/user_payment/entity/user_payment.entity';
 
 @Resolver()
 export class UserPaymentResolver {
@@ -16,6 +14,6 @@ export class UserPaymentResolver {
 
   @Query(() => [UserEducationFundState])
   getUserInternStatus(): Promise<UserEducationFundState[]> {
-    return this.userPaymentService.geUserEducationFundState();
+    return this.userPaymentService.getUserEducationFundState();
   }
 }

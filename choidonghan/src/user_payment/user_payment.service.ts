@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import {
-  UserComputationFund,
-  UserEducationFundState,
-} from 'src/user_payment/entity/user_payment.entity';
+import { User } from 'src/user_information/entity/user_information.entity';
 import { Repository } from 'typeorm';
+import { UserComputationFund } from './entity/user_computation_fund.entity';
+import { UserEducationFundState } from './entity/user_education_fund_state.entity';
 
 @Injectable()
 export class UserPaymentService {
@@ -19,7 +18,11 @@ export class UserPaymentService {
     return await this.userComputationFund.find({});
   }
 
-  async geUserEducationFundState(): Promise<UserEducationFundState[]> {
+  async getUserCompotationFundById(): Promise<UserComputationFund> {
+    return await this.getUserCompotationFundById();
+  }
+
+  async getUserEducationFundState(): Promise<UserEducationFundState[]> {
     return await this.userEducationFundState.find({});
   }
 }

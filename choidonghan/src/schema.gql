@@ -7,10 +7,13 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
-"""
-The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
-"""
-scalar JSON
+input Filter {
+  column: String!
+  entityName: String!
+  givenValue: String!
+  lastest: Boolean!
+  operator: String!
+}
 
 type JoinedTable {
   academic_state: String
@@ -39,7 +42,7 @@ type JoinedTable {
 }
 
 type Query {
-  getFilter(filters: JSON!): [JoinedTable!]!
+  getFilter(filters: [Filter!]!): [JoinedTable!]!
   getUserAccessCardInformation: [UserAccessCardInformation!]!
   getUserBlackhole: [UserBlackhole!]!
   getUserById: [User!]!
@@ -54,7 +57,7 @@ type Query {
   getUserPersonalInformation: [UserPersonalInformation!]!
   getUserProcessProgress: [UserProcessProgress!]!
   getUserReasonOfBreak: UserReasonOfBreak!
-  getUsers(column: String!, entityName: String!, givenValue: String!, log: Boolean!, operator: String!): [User!]!
+  getUsers(column: String!, entityName: String!, givenValue: String!, lastest: Boolean!, operator: String!): [User!]!
 }
 
 type User {

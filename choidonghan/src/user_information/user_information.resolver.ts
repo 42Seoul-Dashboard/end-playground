@@ -39,10 +39,20 @@ export class UserInformationResolver {
     return this.userService.getUserAccessCardInformation();
   }
 
+  // @Query(() => [JoinedTable])
+  // getFilterBeforeJson(@Args() filterArg: FilterArgs) {
+  //   // console.log(filterArg);
+  //   // return;
+  //   return this.userService.processFilters(filterArg.filters['realFilters']);
+  // }
+
+  // @Query(() => [JoinedTable])
+  // getFilter(@Args() filterArg: Filter[]) {
+  //   return this.userService.processFilters(filterArg);
+  // }
+
   @Query(() => [JoinedTable])
   getFilter(@Args() filterArg: FilterArgs) {
-    // console.log(filterArg);
-    // return;
-    return this.userService.processFilters(filterArg.filters['realFilters']);
+    return this.userService.processFilters(filterArg.filters);
   }
 }

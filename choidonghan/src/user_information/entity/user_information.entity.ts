@@ -3,6 +3,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
   ManyToOne,
   OneToMany,
   OneToOne,
@@ -23,15 +24,15 @@ import {
   UserHrdNetUtilize,
   UserInternStatus,
 } from '../../user_job/entity/user_job.entity';
-import {
-  UserComputationFund,
-  UserEducationFundState,
-} from '../../user_payment/entity/user_payment.entity';
+
 import { UserPersonalInformation } from './user_personal_information.entity';
 import { UserAccessCardInformation } from './user_access_card_information.entity';
 import { UserOtherInformation } from './user_other_information.entity';
 import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { UserComputationFund } from 'src/user_payment/entity/user_computation_fund.entity';
+import { UserEducationFundState } from 'src/user_payment/entity/user_education_fund_state.entity';
 
+//인덱스
 //유저
 @ObjectType()
 @Entity()
@@ -40,33 +41,44 @@ export class User {
   @PrimaryColumn({ name: 'intra_no' })
   intra_no: number;
 
-  // @Field()
+  @Field()
   @Column({ name: 'intra_id', nullable: false, default: 'NOT_EXIST' })
   intra_id: string;
 
-  // @Field()
+  @Field()
   @Column({ name: 'name', nullable: false, default: 'NO_NAME' })
   name: string;
 
-  // @Field()
+  @Field()
   @Column({ name: 'grade', nullable: false, default: '0기' })
   grade: string;
 
   // @Field()
-  @Column({ name: 'start_process', nullable: false, default: '9999-12-31' })
+  @Column({
+    name: 'start_process',
+    nullable: false,
+    default: '9999-12-31',
+    type: 'date',
+  })
   start_process: Date;
 
-  // @Field()
+  @Field()
   @Column({ name: 'academic_state', nullable: false, default: 'BLACK_HOLE' })
   academic_state: string;
 
-  // @Field()
+  @Field()
   @Column({ name: 'coalition', nullable: true })
   coalition: string;
 
-  // @Field()
-  @CreateDateColumn({ name: 'create_date' })
+  @Field()
+  @CreateDateColumn({ name: 'created_date' })
   created_date: Date;
+
+  // @Field()
+  // vailidated_date;
+
+  // @Field()
+  // expired_date;
 
   /***********************************
    *               User               *
@@ -77,6 +89,7 @@ export class User {
     () => UserPersonalInformation,
     (userPersonalInformation) => userPersonalInformation.user,
   )
+  @JoinTable()
   userPersonalInformation: UserPersonalInformation;
 
   // @Field(()=>UserAccessCardInformation)
@@ -84,6 +97,7 @@ export class User {
     () => UserAccessCardInformation,
     (userAccessCardInformation) => userAccessCardInformation.user,
   )
+  @JoinTable()
   userAccessCardInformation: UserAccessCardInformation;
 
   // @Field((type) => [UserOtherInformation])
@@ -163,7 +177,7 @@ export class User {
     () => UserEmploymentAndFound,
     (UserEmploymentAndFound) => UserEmploymentAndFound.user,
   )
-  UserEmploymentAndFound: UserEmploymentAndFound[];
+  userEmploymentAndFound: UserEmploymentAndFound[];
 
   // @Field((type) => [UserInternStatus])
   @OneToMany(

@@ -7,6 +7,7 @@ import {
   UserInternStatus,
 } from 'src/user_job/entity/user_job.entity';
 import { UserJobController } from './user_job.controller';
+import { UserJobResolver } from './user_job.resolver';
 import { UserJobService } from './user_job.service';
 
 @Module({
@@ -19,6 +20,6 @@ import { UserJobService } from './user_job.service';
     ]),
   ],
   controllers: [UserJobController],
-  providers: [UserJobService],
+  providers: [UserJobService, UserJobResolver],
 })
 export class UserJobModule {}

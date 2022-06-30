@@ -2,6 +2,9 @@
 /dist
 /node_modules
 /Users/doyun/Desktop/end-playground/choidonghan/src/config
+./node_modules/
+./src/config/
+
 # Logs
 logs
 *.log

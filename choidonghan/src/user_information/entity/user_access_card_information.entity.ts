@@ -7,6 +7,7 @@ import {
   JoinColumn,
   OneToOne,
   PrimaryColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { User } from './user_information.entity';
 //출입카드정보
@@ -14,7 +15,7 @@ import { User } from './user_information.entity';
 @ObjectType()
 export class UserAccessCardInformation extends BaseEntity {
   @Field((type) => Int)
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn({ name: 'pk' })
   pk: number;
 
   @Field()
@@ -44,12 +45,12 @@ export class UserAccessCardInformation extends BaseEntity {
   @CreateDateColumn({ name: 'created_date' })
   created_date: Date;
 
-  @OneToOne(() => User, (user) => user.userAccessCardInformation)
-  @JoinColumn()
-  user: User;
-}
+  @Column({ name: 'fk_user_no', nullable: true })
+  fk_user_no: string;
 
-@ObjectType()
-export class IsWork {
-  id: string;
+  @OneToOne(() => User, (user) => user.userAccessCardInformation, {
+    createForeignKeyConstraints: false, //외래키 제약조건 해제
+  })
+  @JoinColumn({ name: 'fk_user_no' })
+  user: User;
 }

@@ -4,6 +4,8 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  JoinTable,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -34,14 +36,23 @@ export class UserComputationFund extends BaseEntity {
   recevied_grant_amount: number;
 
   @Field({ nullable: true })
-  @Column({ name: 'payment_date', nullable: true })
+  @Column({
+    name: 'payment_date',
+    nullable: false,
+    default: '9999-12-31',
+    type: 'date',
+  })
   payment_date: Date;
 
   @Field({ nullable: false })
   @CreateDateColumn({ name: 'created_date' })
   created_date: Date;
 
+  @Column({ name: 'fk_user_no', nullable: true })
+  fk_user_no: string;
+
   @ManyToOne(() => User, (user) => user.userComputationFund)
+  @JoinColumn({ name: 'fk_user_no' })
   user: User;
 }
 
@@ -62,7 +73,12 @@ export class UserEducationFundState extends BaseEntity {
   total_payment_of_money: number;
 
   @Field({ nullable: true })
-  @Column({ name: 'fund_period', nullable: true })
+  @Column({
+    name: 'fund_period',
+    nullable: false,
+    default: '9999-12-31',
+    type: 'date',
+  })
   fund_period: Date;
 
   @Field({ nullable: true })
@@ -74,7 +90,12 @@ export class UserEducationFundState extends BaseEntity {
   total_calculated_month: number;
 
   @Field({ nullable: true })
-  @Column({ name: 'payment_give_start_date', nullable: true })
+  @Column({
+    name: 'payment_give_start_date',
+    nullable: false,
+    default: '9999-12-31',
+    type: 'date',
+  })
   payment_give_start_date: Date;
 
   @Field({ nullable: true })
@@ -82,13 +103,22 @@ export class UserEducationFundState extends BaseEntity {
   payment_delay_period: number;
 
   @Field({ nullable: true })
-  @Column({ name: 'payment_give_break_date', nullable: true })
+  @Column({
+    name: 'payment_give_break_date',
+    nullable: false,
+    default: '9999-12-31',
+    type: 'date',
+  })
   payment_give_break_date: Date;
 
   @Field({ nullable: false })
   @CreateDateColumn({ name: 'created_date' })
   created_date: Date;
 
+  @Column({ name: 'fk_user_no', nullable: true })
+  fk_user_no: string;
+
   @ManyToOne(() => User, (user) => user.userEducationFundState)
+  @JoinColumn({ name: 'fk_user_no' })
   user: User;
 }

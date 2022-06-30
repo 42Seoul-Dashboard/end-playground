@@ -4,6 +4,8 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  JoinTable,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -31,7 +33,7 @@ export class UserOtherInformation extends BaseEntity {
 
   @Field()
   @Column({ name: 'major_name', nullable: true })
-  major_name: Date;
+  major_name: string;
 
   @Field((type) => Int)
   @Column({ name: 'period_of_software_learning', nullable: true })
@@ -45,6 +47,10 @@ export class UserOtherInformation extends BaseEntity {
   @CreateDateColumn({ name: 'created_date' })
   created_date: Date;
 
+  @Column({ name: 'fk_user_no', nullable: true })
+  fk_user_no: string;
+
   @ManyToOne(() => User, (user) => user.userOtherInformation)
+  @JoinColumn({ name: 'fk_user_no' })
   user: User;
 }

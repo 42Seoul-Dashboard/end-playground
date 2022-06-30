@@ -3,15 +3,17 @@ import {
   BaseEntity,
   Column,
   CreateDateColumn,
-  DeleteDateColumn,
+
   Entity,
+  JoinColumn,
+  JoinTable,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { User } from '../../user_information/entity/user_information.entity';
-
 //!!하나의 파일에 하나의 엔터티? -> 컨벤션을 정할것!
 //목적에 따라 하나의 파일에 넣을수도...
+
 
 //학습데이터
 @ObjectType()
@@ -30,14 +32,23 @@ export class UserLearningData extends BaseEntity {
   out_circle: string;
 
   @Field({ nullable: true })
-  @Column({ name: 'out_circle_date', nullable: true })
+  @Column({
+    name: 'out_circle_date',
+    nullable: false,
+    default: '9999-12-31',
+    type: 'date',
+  })
   out_circle_date: Date;
 
   @Field({ nullable: false })
-  @Column({ name: 'created_date', nullable: false })
+  @CreateDateColumn({ name: 'created_date' })
   created_date: Date;
 
-  @ManyToOne(() => User, (user) => user.intra_no)
+  @Column({ name: 'fk_user_no', nullable: true })
+  fk_user_no: string;
+
+  @ManyToOne(() => User, (user) => user.userLearningDate)
+  @JoinColumn({ name: 'fk_user_no' })
   user: User;
 }
 
@@ -54,6 +65,7 @@ export class UserProcessProgress extends BaseEntity {
     name: 'basic_expiration_date',
     nullable: false,
     default: '9999-12-31',
+    type: 'date',
   })
   basic_expiration_date: Date;
 
@@ -66,18 +78,20 @@ export class UserProcessProgress extends BaseEntity {
     name: 'final_expiration_date',
     nullable: false,
     default: '9999-12-31',
+    type: 'date',
   })
   final_expiration_date: Date;
 
   @Field({ nullable: false })
-  @Column({ name: 'created_date', nullable: false })
+  @CreateDateColumn({ name: 'created_date' })
   created_date: Date;
 
-  @ManyToOne(() => User, (user) => user.intra_no)
-  user: User;
+  @Column({ name: 'fk_user_no', nullable: true })
+  fk_user_no: string;
 
-  @Column({ nullable: true })
-  deleted_at: Date;
+  @ManyToOne(() => User, (user) => user.userProcessProgress)
+  @JoinColumn({ name: 'fk_user_no' })
+  user: User;
 }
 
 //블랙홀
@@ -93,7 +107,12 @@ export class UserBlackhole extends BaseEntity {
   remaining_period: number;
 
   @Field({ nullable: false, defaultValue: '9999-12-31' })
-  @Column({ name: 'blackhole_time', nullable: false, default: '9999-12-31' })
+  @Column({
+    name: 'blackhole_time',
+    nullable: false,
+    default: '9999-12-31',
+    type: 'date',
+  })
   blackhole_time: Date;
 
   @Field({ nullable: true })
@@ -101,10 +120,14 @@ export class UserBlackhole extends BaseEntity {
   reason_of_blackhole: string;
 
   @Field({ nullable: false })
-  @Column({ name: 'created_date', nullable: false })
+  @CreateDateColumn({ name: 'created_date' })
   created_date: Date;
 
-  @ManyToOne(() => User, (user) => user.intra_no)
+  @Column({ name: 'fk_user_no', nullable: true })
+  fk_user_no: string;
+
+  @ManyToOne(() => User, (user) => user.userBlackhole)
+  @JoinColumn({ name: 'fk_user_no' })
   user: User;
 }
 
@@ -117,15 +140,30 @@ export class UserLeaveOfAbsence extends BaseEntity {
   pk: number;
 
   @Field({ nullable: true })
-  @Column({ name: 'start_absence_date', nullable: true })
+  @Column({
+    name: 'start_absence_date',
+    nullable: false,
+    default: '9999-12-31',
+    type: 'date',
+  })
   start_absence_date: Date;
 
   @Field({ nullable: true })
-  @Column({ name: 'end_absence_date', nullable: true })
+  @Column({
+    name: 'end_absence_date',
+    nullable: false,
+    default: '9999-12-31',
+    type: 'date',
+  })
   end_absence_date: Date;
 
   @Field({ nullable: true })
-  @Column({ name: 'return_from_absence_date', nullable: true })
+  @Column({
+    name: 'return_from_absence_date',
+    nullable: false,
+    default: '9999-12-31',
+    type: 'date',
+  })
   return_from_absence_date: Date;
 
   @Field({ nullable: true })
@@ -133,13 +171,16 @@ export class UserLeaveOfAbsence extends BaseEntity {
   absence_reason: string;
 
   @Field({ nullable: false })
-  @Column({ name: 'created_date', nullable: false })
+  @CreateDateColumn({ name: 'created_date' })
   created_date: Date;
 
-  @ManyToOne(() => User, (user) => user.intra_no)
+  @Column({ name: 'fk_user_no', nullable: true })
+  fk_user_no: string;
+
+  @ManyToOne(() => User, (user) => user.userLeaveOfAbsence)
+  @JoinColumn({ name: 'fk_user_no' })
   user: User;
 }
-
 //과정중단
 @ObjectType()
 @Entity()
@@ -153,17 +194,25 @@ export class UserReasonOfBreak extends BaseEntity {
   date_of_break: number;
 
   @Field({ nullable: false, defaultValue: '9999-12-31' })
-  @Column({ name: 'reason_of_break', nullable: false, default: '9999-12-31' })
+  @Column({
+    name: 'reason_of_break',
+    nullable: false,
+    default: '9999-12-31',
+    type: 'date',
+  })
   reason_of_break: Date;
 
   @Field({ nullable: false })
-  @Column({ name: 'created_date', nullable: false })
+  @CreateDateColumn({ name: 'created_date' })
   created_date: Date;
 
-  @ManyToOne(() => User, (user) => user.intra_no)
+  @Column({ name: 'fk_user_no', nullable: true })
+  fk_user_no: string;
+
+  @ManyToOne(() => User, (user) => user.userReasonOfBreak)
+  @JoinColumn({ name: 'fk_user_no' })
   user: User;
 }
-
 //라피신정보관리
 @ObjectType()
 @Entity()
@@ -174,11 +223,11 @@ export class UserLapiscineInformation extends BaseEntity {
 
   @Field({ nullable: true })
   @Column({ name: 'lapiscine_grade', nullable: true })
-  lapiscine_grade: number;
+  lapiscine_grade: string;
 
   @Field({ nullable: false, defaultValue: '0' })
   @Column({ name: 'lapiscine_degree', nullable: false, default: '0' })
-  lapiscine_degree: number;
+  lapiscine_degree: string;
 
   @Field({ nullable: true })
   @Column({ name: 'participate_lapicin', nullable: true })
@@ -191,6 +240,10 @@ export class UserLapiscineInformation extends BaseEntity {
   @CreateDateColumn({ name: 'created_date' })
   created_date: Date;
 
-  @ManyToOne(() => User, (user) => user.intra_no)
+  @Column({ name: 'fk_user_no', nullable: true })
+  fk_user_no: string;
+
+  @ManyToOne(() => User, (user) => user.userLapiscineInformation)
+  @JoinColumn({ name: 'fk_user_no' })
   user: User;
 }

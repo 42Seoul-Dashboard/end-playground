@@ -23,7 +23,7 @@ export class GetUserOtherInformationArgs {
   major_field: string;
 
   @Field()
-  major_name: Date;
+  major_name: string;
 
   @Field((type) => Int, { nullable: true })
   period_of_software_learning: number;

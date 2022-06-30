@@ -3,6 +3,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
   ManyToOne,
   OneToMany,
   OneToOne,
@@ -52,8 +53,13 @@ export class User {
   @Column({ name: 'grade', nullable: false, default: '0기' })
   grade: string;
 
-  @Field()
-  @Column({ name: 'start_process', nullable: false, default: '9999-12-31' })
+  // @Field()
+  @Column({
+    name: 'start_process',
+    nullable: false,
+    default: '9999-12-31',
+    type: 'date',
+  })
   start_process: Date;
 
   @Field()
@@ -83,6 +89,7 @@ export class User {
     () => UserPersonalInformation,
     (userPersonalInformation) => userPersonalInformation.user,
   )
+  @JoinTable()
   userPersonalInformation: UserPersonalInformation;
 
   // @Field(()=>UserAccessCardInformation)
@@ -90,6 +97,7 @@ export class User {
     () => UserAccessCardInformation,
     (userAccessCardInformation) => userAccessCardInformation.user,
   )
+  @JoinTable()
   userAccessCardInformation: UserAccessCardInformation;
 
   // @Field((type) => [UserOtherInformation])
@@ -169,7 +177,7 @@ export class User {
     () => UserEmploymentAndFound,
     (UserEmploymentAndFound) => UserEmploymentAndFound.user,
   )
-  UserEmploymentAndFound: UserEmploymentAndFound[];
+  userEmploymentAndFound: UserEmploymentAndFound[];
 
   // @Field((type) => [UserInternStatus])
   @OneToMany(

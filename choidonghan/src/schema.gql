@@ -7,68 +7,17 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
-input Filter {
-  column: String!
-  entityName: String!
-  givenValue: String!
-  lastest: Boolean!
-  operator: String!
-}
-
-type JoinedTable {
-  academic_state: String
-  coalition: String
-  created_date: DateTime
-  grade: String
-  intra_id: String
-  intra_no: Int!
-  name: String
-  start_process: DateTime
-  userAccessCardInformation: UserAccessCardInformation
-  userBlackhole: [UserBlackhole!]
-  userComputationFund: [UserComputationFund!]
-  userEducationFundState: [UserEducationFundState!]
-  userEmploymentAndFound: [UserEmploymentAndFound!]
-  userEmploymentStatus: [UserEmploymentStatus!]
-  userHrdNetUtilize: [UserHrdNetUtilize!]
-  userInternStatus: [UserInternStatus!]
-  userLapiscineInformation: [UserLapiscineInformation!]
-  userLearningData: [UserLearningData!]
-  userLeaveOfAbsence: [UserLeaveOfAbsence!]
-  userOtherInformation: [UserOtherInformation!]
-  userPersonalInformation: UserPersonalInformation
-  userProcessProgress: [UserProcessProgress!]
-  userReasonOfBreak: [UserReasonOfBreak!]
-}
-
 type Query {
-  getFilter(filters: [Filter!]!): [JoinedTable!]!
+  getFilter(filters: JSON!): [JoinedTable!]!
   getUserAccessCardInformation: [UserAccessCardInformation!]!
-  getUserBlackhole: [UserBlackhole!]!
-  getUserById: [User!]!
-  getUserComputationFund: [UserComputationFund!]!
-  getUserEmploymentAndFound: [UserEmploymentAndFound!]!
-  getUserEmploymentStatus: [UserEmploymentStatus!]!
-  getUserHrdNetUtilize: [UserHrdNetUtilize!]!
-  getUserInternStatus: [UserEducationFundState!]!
-  getUserLeaningData: [UserLearningData!]!
-  getUserLeaveOfAbsence: [UserLeaveOfAbsence!]!
-  getUserOtherInformation(created_date: DateTime!, experience_of_software_developing: String!, highest_level_of_education: String!, major: String!, major_field: String!, major_name: DateTime!, period_of_software_learning: Int, pk: Int): [UserOtherInformation!]!
+  getUserById(created_date: DateTime!, experience_of_software_developing: String!, highest_level_of_education: String!, major: String!, major_field: String!, major_name: String!, period_of_software_learning: Int, pk: Int): [User!]!
+  getUserOtherInformation: [UserOtherInformation!]!
   getUserPersonalInformation: [UserPersonalInformation!]!
-  getUserProcessProgress: [UserProcessProgress!]!
-  getUserReasonOfBreak: UserReasonOfBreak!
-  getUsers(column: String!, entityName: String!, givenValue: String!, lastest: Boolean!, operator: String!): [User!]!
+  getUsers: [User!]!
 }
 
 type User {
-  academic_state: String!
-  coalition: String!
-  created_date: DateTime!
-  grade: String!
-  intra_id: String!
   intra_no: Int!
-  name: String!
-  start_process: DateTime!
 }
 
 type UserAccessCardInformation {

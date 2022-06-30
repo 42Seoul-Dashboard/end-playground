@@ -4,6 +4,8 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  JoinTable,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -22,7 +24,12 @@ export class UserEmploymentAndFound extends BaseEntity {
   employment: string;
 
   @Field({ nullable: true })
-  @Column({ name: 'employment_date', nullable: true })
+  @Column({
+    name: 'employment_date',
+    nullable: false,
+    default: '9999-12-31',
+    type: 'date',
+  })
   employment_date: Date;
 
   @Field({ nullable: true })
@@ -33,7 +40,11 @@ export class UserEmploymentAndFound extends BaseEntity {
   @CreateDateColumn({ name: 'created_date' })
   created_date: Date;
 
-  @ManyToOne(() => User, (user) => user.intra_no)
+  @Column({ name: 'fk_user_no', nullable: true })
+  fk_user_no: string;
+
+  @ManyToOne(() => User, (user) => user.userEmploymentAndFound)
+  @JoinColumn({ name: 'fk_user_no' })
   user: User;
 }
 
@@ -54,7 +65,12 @@ export class UserInternStatus extends BaseEntity {
   end_intern_date: number;
 
   @Field({ nullable: true })
-  @Column({ name: 'enterprise', nullable: true })
+  @Column({
+    name: 'enterprise',
+    nullable: false,
+    default: '9999-12-31',
+    type: 'date',
+  })
   enterprise: Date;
 
   @Field({ nullable: true })
@@ -66,7 +82,12 @@ export class UserInternStatus extends BaseEntity {
   intern_blackhole: number;
 
   @Field({ nullable: true })
-  @Column({ name: 'intern_blackhole_date', nullable: true })
+  @Column({
+    name: 'intern_blackhole_date',
+    nullable: false,
+    default: '9999-12-31',
+    type: 'date',
+  })
   intern_blackhole_date: Date;
 
   @Field({ nullable: true })
@@ -77,7 +98,11 @@ export class UserInternStatus extends BaseEntity {
   @CreateDateColumn({ name: 'created_date' })
   created_date: Date;
 
-  @ManyToOne(() => User, (user) => user.intra_no)
+  @Column({ name: 'fk_user_no', nullable: true })
+  fk_user_no: string;
+
+  @ManyToOne(() => User, (user) => user.userInternStatus)
+  @JoinColumn({ name: 'fk_user_no' })
   user: User;
 }
 
@@ -98,7 +123,12 @@ export class UserHrdNetUtilize extends BaseEntity {
   consent_to_provide_information: string;
 
   @Field({ nullable: true })
-  @Column({ name: 'employment_insurance_date', nullable: true })
+  @Column({
+    name: 'employment_insurance_date',
+    nullable: false,
+    default: '9999-12-31',
+    type: 'date',
+  })
   employment_insurance_date: Date;
 
   @Field({ nullable: true })
@@ -113,7 +143,11 @@ export class UserHrdNetUtilize extends BaseEntity {
   @CreateDateColumn({ name: 'created_date' })
   created_date: Date;
 
-  @ManyToOne(() => User, (user) => user.intra_no)
+  @Column({ name: 'fk_user_no', nullable: true })
+  fk_user_no: string;
+
+  @ManyToOne(() => User, (user) => user.userHrdNetUtilize)
+  @JoinColumn({ name: 'fk_user_no' })
   user: User;
 }
 
@@ -126,7 +160,12 @@ export class UserEmploymentStatus extends BaseEntity {
   pk: number;
 
   @Field({ nullable: true })
-  @Column({ name: 'emplyment_date', nullable: true })
+  @Column({
+    name: 'emplyment_date',
+    nullable: false,
+    default: '9999-12-31',
+    type: 'date',
+  })
   emplyment_date: Date;
 
   @Field({ nullable: true })
@@ -134,9 +173,13 @@ export class UserEmploymentStatus extends BaseEntity {
   enterprise: string;
 
   @Field({ nullable: false })
-  @Column({ name: 'created_date', nullable: false })
+  @CreateDateColumn({ name: 'created_date' })
   created_date: Date;
 
-  @ManyToOne(() => User, (user) => user.intra_no)
+  @Column({ name: 'fk_user_no', nullable: true })
+  fk_user_no: string;
+
+  @ManyToOne(() => User, (user) => user.userEmploymentStatus)
+  @JoinColumn({ name: 'fk_user_no' })
   user: User;
 }

@@ -1,1 +1,0 @@
-nest g controller user_information && nest g service user_information && nest g module user_status && nest g controller user_status && nest g service user_status && nest g module payment && nest g controller payment && nest g service payment && nest g module user_job && nest g controller user_job && nest g service user_job 

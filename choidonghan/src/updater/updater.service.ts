@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { find } from 'rxjs';
 import { SHEET_ID2, SPREAD_END_POINT } from 'src/config/key';
 import { UserAccessCardInformation } from 'src/user_information/entity/user_access_card_information.entity';
 import { User } from 'src/user_information/entity/user_information.entity';
@@ -24,10 +23,7 @@ import {
   UserProcessProgress,
   UserReasonOfBreak,
 } from 'src/user_status/entity/user_status.entity';
-import { DataSource, Repository } from 'typeorm';
-import { CreateUpdaterInput } from './dto/create-updater.input';
-import { UpdateUpdaterInput } from './dto/update-updater.input';
-import { Updater } from './entities/updater.entity';
+import { Repository } from 'typeorm';
 import { endOfTable, mapObj } from './name_types/updater.name';
 
 @Injectable() //총 16개의 테이블
@@ -153,17 +149,17 @@ export class UpdaterService {
     endOfTable: string,
   ): number {
     let tupleLine;
-    let idx;
-    let jdx = colIdx;
+    let idx; //특정 테이블에 있는 컬럼인지 검사하는 색인
+    let jdx = colIdx; //컬럼의 위치 튜플의 도메인 위치 맞춰주기 위한 색인
 
-    for (const row in rows) {
+    for (const row of rows) {
       const tuple = {};
-      jdx = colIdx;
+      jdx = colIdx; //특정 테이블의 시작에 해당하는 컬럼의 색인으로 초기화
       while (1) {
         //하나의 로우 완성
         idx = 0;
         if (cols[jdx] === undefined || cols[jdx]['label'] === endOfTable) break;
-        else if (rows[row]['c'][jdx] === null) {
+        else if (row['c'][jdx] === null) {
           tuple[`${cols[jdx]['label']}`] = null; //셀값이 null인 경우 별도의 처리
         } else if (
           (idx = this.compareColumn(cols[jdx]['label'], mapObj)) !== -1
@@ -171,18 +167,17 @@ export class UpdaterService {
           if (cols[jdx]['type'] === 'date')
             //타입이 date인 경우 변환처리해줘야 db에 적용됨.
             tuple[`${mapObj[idx].dbName}`] = this.change_date(
-              rows[row]['c'][jdx]['f'],
+              row['c'][jdx]['f'],
             );
-          else if (rows[row]['c'][jdx]['v'] !== null)
-            tuple[`${mapObj[idx].dbName}`] = rows[row]['c'][jdx]['v'];
+          else if (row['c'][jdx]['v'] !== null)
+            tuple[`${mapObj[idx].dbName}`] = row['c'][jdx]['v'];
         }
         jdx++;
       }
       tupleLine = Repo.create(tuple);
-      console.log(tupleLine);
+      tupleLine['fk_user_no'] = row['c'][1]['f'];
       Repo.save(tupleLine);
     }
-    console.log('----');
     return jdx;
   }
 

@@ -4,6 +4,8 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  JoinTable,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -38,7 +40,11 @@ export class UserEmploymentAndFound extends BaseEntity {
   @CreateDateColumn({ name: 'created_date' })
   created_date: Date;
 
-  @ManyToOne(() => User, (user) => user.intra_no)
+  @Column({ name: 'fk_user_no', nullable: true })
+  fk_user_no: string;
+
+  @ManyToOne(() => User, (user) => user.userEmploymentAndFound)
+  @JoinColumn({ name: 'fk_user_no' })
   user: User;
 }
 
@@ -92,7 +98,11 @@ export class UserInternStatus extends BaseEntity {
   @CreateDateColumn({ name: 'created_date' })
   created_date: Date;
 
-  @ManyToOne(() => User, (user) => user.intra_no)
+  @Column({ name: 'fk_user_no', nullable: true })
+  fk_user_no: string;
+
+  @ManyToOne(() => User, (user) => user.userInternStatus)
+  @JoinColumn({ name: 'fk_user_no' })
   user: User;
 }
 
@@ -133,7 +143,11 @@ export class UserHrdNetUtilize extends BaseEntity {
   @CreateDateColumn({ name: 'created_date' })
   created_date: Date;
 
-  @ManyToOne(() => User, (user) => user.intra_no)
+  @Column({ name: 'fk_user_no', nullable: true })
+  fk_user_no: string;
+
+  @ManyToOne(() => User, (user) => user.userHrdNetUtilize)
+  @JoinColumn({ name: 'fk_user_no' })
   user: User;
 }
 
@@ -162,6 +176,10 @@ export class UserEmploymentStatus extends BaseEntity {
   @CreateDateColumn({ name: 'created_date' })
   created_date: Date;
 
-  @ManyToOne(() => User, (user) => user.intra_no)
+  @Column({ name: 'fk_user_no', nullable: true })
+  fk_user_no: string;
+
+  @ManyToOne(() => User, (user) => user.userEmploymentStatus)
+  @JoinColumn({ name: 'fk_user_no' })
   user: User;
 }

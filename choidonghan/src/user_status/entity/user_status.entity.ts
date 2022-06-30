@@ -4,6 +4,8 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  JoinTable,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -38,7 +40,11 @@ export class UserLearningData extends BaseEntity {
   @CreateDateColumn({ name: 'created_date' })
   created_date: Date;
 
-  @ManyToOne(() => User, (user) => user.intra_no)
+  @Column({ name: 'fk_user_no', nullable: true })
+  fk_user_no: string;
+
+  @ManyToOne(() => User, (user) => user.userLearningDate)
+  @JoinColumn({ name: 'fk_user_no' })
   user: User;
 }
 
@@ -76,7 +82,11 @@ export class UserProcessProgress extends BaseEntity {
   @CreateDateColumn({ name: 'created_date' })
   created_date: Date;
 
-  @ManyToOne(() => User, (user) => user.intra_no)
+  @Column({ name: 'fk_user_no', nullable: true })
+  fk_user_no: string;
+
+  @ManyToOne(() => User, (user) => user.userProcessProgress)
+  @JoinColumn({ name: 'fk_user_no' })
   user: User;
 }
 
@@ -109,7 +119,11 @@ export class UserBlackhole extends BaseEntity {
   @CreateDateColumn({ name: 'created_date' })
   created_date: Date;
 
-  @ManyToOne(() => User, (user) => user.intra_no)
+  @Column({ name: 'fk_user_no', nullable: true })
+  fk_user_no: string;
+
+  @ManyToOne(() => User, (user) => user.userBlackhole)
+  @JoinColumn({ name: 'fk_user_no' })
   user: User;
 }
 
@@ -156,7 +170,11 @@ export class UserLeaveOfAbsence extends BaseEntity {
   @CreateDateColumn({ name: 'created_date' })
   created_date: Date;
 
-  @ManyToOne(() => User, (user) => user.intra_no)
+  @Column({ name: 'fk_user_no', nullable: true })
+  fk_user_no: string;
+
+  @ManyToOne(() => User, (user) => user.userLeaveOfAbsence)
+  @JoinColumn({ name: 'fk_user_no' })
   user: User;
 }
 
@@ -185,7 +203,11 @@ export class UserReasonOfBreak extends BaseEntity {
   @CreateDateColumn({ name: 'created_date' })
   created_date: Date;
 
-  @ManyToOne(() => User, (user) => user.intra_no)
+  @Column({ name: 'fk_user_no', nullable: true })
+  fk_user_no: string;
+
+  @ManyToOne(() => User, (user) => user.userReasonOfBreak)
+  @JoinColumn({ name: 'fk_user_no' })
   user: User;
 }
 
@@ -216,6 +238,10 @@ export class UserLapiscineInformation extends BaseEntity {
   @CreateDateColumn({ name: 'created_date' })
   created_date: Date;
 
-  @ManyToOne(() => User, (user) => user.intra_no)
+  @Column({ name: 'fk_user_no', nullable: true })
+  fk_user_no: string;
+
+  @ManyToOne(() => User, (user) => user.userLapiscineInformation)
+  @JoinColumn({ name: 'fk_user_no' })
   user: User;
 }

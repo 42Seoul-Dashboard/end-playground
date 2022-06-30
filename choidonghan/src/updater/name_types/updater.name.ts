@@ -1,3 +1,6 @@
+//테이블의 컬럼을 나열해 놓았습니다.
+//컬럼 추가시 여기에 추가해야함
+
 export const mapObj = [
   [
     { spName: 'Intra No.', dbName: 'intra_no' },
@@ -89,6 +92,8 @@ export const mapObj = [
     },
   ],
 ];
+
+//테이블의 경계
 
 export const endOfTable = [
   '학사정보 no.',

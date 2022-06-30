@@ -4,6 +4,8 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  JoinTable,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -46,7 +48,11 @@ export class UserComputationFund extends BaseEntity {
   @CreateDateColumn({ name: 'created_date' })
   created_date: Date;
 
+  @Column({ name: 'fk_user_no', nullable: true })
+  fk_user_no: string;
+
   @ManyToOne(() => User, (user) => user.userComputationFund)
+  @JoinColumn({ name: 'fk_user_no' })
   user: User;
 }
 
@@ -109,6 +115,10 @@ export class UserEducationFundState extends BaseEntity {
   @CreateDateColumn({ name: 'created_date' })
   created_date: Date;
 
+  @Column({ name: 'fk_user_no', nullable: true })
+  fk_user_no: string;
+
   @ManyToOne(() => User, (user) => user.userEducationFundState)
+  @JoinColumn({ name: 'fk_user_no' })
   user: User;
 }

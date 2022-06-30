@@ -45,8 +45,11 @@ export class UserAccessCardInformation extends BaseEntity {
   @CreateDateColumn({ name: 'created_date' })
   created_date: Date;
 
+  @Column({ name: 'fk_user_no', nullable: true })
+  fk_user_no: string;
+
   @OneToOne(() => User, (user) => user.userAccessCardInformation)
-  @JoinColumn()
+  @JoinColumn({ name: 'fk_user_no' })
   user: User;
 }
 

@@ -3,6 +3,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
   ManyToOne,
   OneToMany,
   OneToOne,
@@ -82,6 +83,7 @@ export class User {
     () => UserPersonalInformation,
     (userPersonalInformation) => userPersonalInformation.user,
   )
+  @JoinTable()
   userPersonalInformation: UserPersonalInformation;
 
   // @Field(()=>UserAccessCardInformation)
@@ -89,6 +91,7 @@ export class User {
     () => UserAccessCardInformation,
     (userAccessCardInformation) => userAccessCardInformation.user,
   )
+  @JoinTable()
   userAccessCardInformation: UserAccessCardInformation;
 
   // @Field((type) => [UserOtherInformation])
@@ -168,7 +171,7 @@ export class User {
     () => UserEmploymentAndFound,
     (UserEmploymentAndFound) => UserEmploymentAndFound.user,
   )
-  UserEmploymentAndFound: UserEmploymentAndFound[];
+  userEmploymentAndFound: UserEmploymentAndFound[];
 
   // @Field((type) => [UserInternStatus])
   @OneToMany(

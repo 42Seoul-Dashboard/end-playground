@@ -7,42 +7,7 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
-input Filter {
-  column: String!
-  entityName: String!
-  givenValue: String!
-  lastest: Boolean!
-  operator: String!
-}
 
-type JoinedTable {
-  academic_state: String
-  coalition: String
-  created_date: DateTime
-  grade: String
-  intra_id: String
-  intra_no: Int!
-  name: String
-  start_process: DateTime
-  userAccessCardInformation: UserAccessCardInformation
-  userBlackhole: [UserBlackhole!]
-  userComputationFund: [UserComputationFund!]
-  userEducationFundState: [UserEducationFundState!]
-  userEmploymentAndFound: [UserEmploymentAndFound!]
-  userEmploymentStatus: [UserEmploymentStatus!]
-  userHrdNetUtilize: [UserHrdNetUtilize!]
-  userInternStatus: [UserInternStatus!]
-  userLapiscineInformation: [UserLapiscineInformation!]
-  userLearningData: [UserLearningData!]
-  userLeaveOfAbsence: [UserLeaveOfAbsence!]
-  userOtherInformation: [UserOtherInformation!]
-  userPersonalInformation: UserPersonalInformation
-  userProcessProgress: [UserProcessProgress!]
-  userReasonOfBreak: [UserReasonOfBreak!]
-}
-
-type Query {
-  getFilter(filters: [Filter!]!): [JoinedTable!]!
   getUserAccessCardInformation: [UserAccessCardInformation!]!
   getUserBlackhole: [UserBlackhole!]!
   getUserById: [User!]!
@@ -61,13 +26,7 @@ type Query {
 }
 
 type User {
-  academic_state: String!
-  coalition: String!
-  created_date: DateTime!
-  grade: String!
-  intra_id: String!
   intra_no: Int!
-  name: String!
 }
 
 type UserAccessCardInformation {

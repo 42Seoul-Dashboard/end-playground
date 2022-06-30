@@ -52,8 +52,3 @@ export class UserAccessCardInformation extends BaseEntity {
   @JoinColumn({ name: 'fk_user_no' })
   user: User;
 }
-
-@ObjectType()
-export class IsWork {
-  id: string;
-}

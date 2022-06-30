@@ -1,22 +1,28 @@
 import { Injectable } from '@nestjs/common';
-import {
-  UserComputationFund,
-  UserEducationFundState,
-} from 'src/user_payment/entity/user_payment.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from 'src/user_information/entity/user_information.entity';
 import { Repository } from 'typeorm';
+import { UserComputationFund } from './entity/user_computation_fund.entity';
+import { UserEducationFundState } from './entity/user_education_fund_state.entity';
 
 @Injectable()
 export class UserPaymentService {
   constructor(
-    private userComputationFund: Repository<UserComputationFund>,
-    private userEducationFundState: Repository<UserEducationFundState>,
+    @InjectRepository(UserComputationFund)
+    private readonly userComputationFund: Repository<UserComputationFund>,
+    @InjectRepository(UserEducationFundState)
+    private readonly userEducationFundState: Repository<UserEducationFundState>,
   ) {}
 
   async getUserComputationFund(): Promise<UserComputationFund[]> {
-    return await this.userComputationFund.find();
+    return await this.userComputationFund.find({});
   }
 
-  async geUserEducationFundState(): Promise<UserEducationFundState[]> {
-    return await this.userEducationFundState.find();
+  async getUserCompotationFundById(): Promise<UserComputationFund> {
+    return await this.getUserCompotationFundById();
+  }
+
+  async getUserEducationFundState(): Promise<UserEducationFundState[]> {
+    return await this.userEducationFundState.find({});
   }
 }

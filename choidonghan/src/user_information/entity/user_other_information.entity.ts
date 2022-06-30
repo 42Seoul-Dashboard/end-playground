@@ -31,7 +31,7 @@ export class UserOtherInformation extends BaseEntity {
 
   @Field()
   @Column({ name: 'major_name', nullable: true })
-  major_name: Date;
+  major_name: string;
 
   @Field((type) => Int)
   @Column({ name: 'period_of_software_learning', nullable: true })

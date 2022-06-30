@@ -4,7 +4,9 @@ import { Filter } from '../filter';
 
 @ArgsType()
 export class FilterArgs {
-  @Field((type) => GraphQLJSON)
-  filters: JSON;
+  // @Field((type) => GraphQLJSON, { nullable: true })
+  // filters: JSON;
 
+  @Field((type) => [Filter]) //에러발생 -> Filter 선언부쪽에 @InputType()붙여주니까 해결됨
+  filters: Filter[];
 }

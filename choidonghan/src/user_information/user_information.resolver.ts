@@ -8,62 +8,20 @@ import { QueryResult } from 'typeorm';
 import { FilterArgs } from './argstype/filter.argstype';
 import { GetUserOtherInformationArgs } from './argstype/userOtherInformation.argstype';
 import { Filter } from './filter';
-import { JoinedTable } from './joinedTable';
+import { JoinedTable } from './argstype/joinedTable';
 import { UserInformationService } from './user_information.service';
-// interface args {
-//     user:{
-//         gender:'남'
-//     },
-//     lapici:{
-//         grade:'3'
-//     }
-// }
 
 @Resolver() //graphql에서 controler가 resolver
 export class UserInformationResolver {
   constructor(private readonly userService: UserInformationService) {}
 
-  // twoJoin(){
-  //   temp = await queryRunner.manager
-  //     .createQueryBuilder(User, 'user')
-  //     .leftJoinAndSelect(
-  //       'user.userBlackhole',
-  //       'blackhole', //innerJoinAndSelect가 outetJoin인듯?
-  //       'blackhole.remaining_period > :period',
-  //       { period: 90 },
-  //     ) //오버로딩을 생각하자
-  //     .getMany();
-  // }
-
-  // threeJoin(){
-  //   while (i < table_Cnt)
-  //   {
-  //       table = parsing
-  //       temp = await queryRunner.manager
-  //     .createQueryBuilder(User, 'user')
-  //     .leftJoinAndSelect(
-  //       'user.userBlackhole',
-  //       'blackhole', //innerJoinAndSelect가 outetJoin인듯?
-  //       'blackhole.remaining_period > :period',
-  //       { period: 90 },
-  //     )
-  //     } //오버로딩을 생각하자
-  //     .leftJoinAndSelect(
-  //       'user.userBlackhole',
-  //       'blackhole', //innerJoinAndSelect가 outetJoin인듯?
-  //       'blackhole.remaining_period > :period',
-  //       { period: 90 },
-  //     ) //오버로딩을 생각하자
-  //     .getMany();
-  // }
-
   @Query(() => [User])
-  getUsers() {
+  getUsers(@Args() arg: Filter) {
     return this.userService.querySampel();
   }
 
   @Query(() => [User])
-  getUserById(@Args() args: GetUserOtherInformationArgs) {
+  getUserById() {
     return this.userService.querySampel();
   }
   @Query(() => [UserPersonalInformation])
@@ -72,7 +30,7 @@ export class UserInformationResolver {
   }
 
   @Query(() => [UserOtherInformation])
-  getUserOtherInformation() {
+  getUserOtherInformation(@Args() args: GetUserOtherInformationArgs) {
     return this.userService.getUserOtherInformation();
   }
 
@@ -81,28 +39,20 @@ export class UserInformationResolver {
     return this.userService.getUserAccessCardInformation();
   }
 
+  // @Query(() => [JoinedTable])
+  // getFilterBeforeJson(@Args() filterArg: FilterArgs) {
+  //   // console.log(filterArg);
+  //   // return;
+  //   return this.userService.processFilters(filterArg.filters['realFilters']);
+  // }
+
+  // @Query(() => [JoinedTable])
+  // getFilter(@Args() filterArg: Filter[]) {
+  //   return this.userService.processFilters(filterArg);
+  // }
+
   @Query(() => [JoinedTable])
   getFilter(@Args() filterArg: FilterArgs) {
-    // console.log(filterArg.filters);
-    // const temp = filterArg.filters['realFilters'];
-    // for (const i in temp) {
-    //   console.log('key', i);
-    //   console.log('value', temp[i]);
-    // }
-    // console.log('--------------------');
-    // const arr = [];
-    // arr.push(1);
-    // arr.push(2);
-    // arr.push(3);
-    // arr.push(4);
-    // for (const i in arr) {
-    //   console.log('key', i);
-    //   console.log('value', arr[i]);
-    // }
-    // const ret = new JoinedTable();
-    // ret.grade = '3기';
-    // ret.name = 'huchoi';
-    // return ret;
-    return this.userService.processFilters(filterArg.filters["realFilters"]);
+    return this.userService.processFilters(filterArg.filters);
   }
 }

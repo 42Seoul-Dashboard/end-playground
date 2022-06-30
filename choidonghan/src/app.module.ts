@@ -10,11 +10,13 @@ import { UserPaymentModule } from './user_payment/user_payment.module';
 import { UserJobModule } from './user_job/user_job.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeORMConfig } from './config/typeorm.config';
+import { ApiModule } from './api/api.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(typeORMConfig),
     UserInformationModule,
+    ApiModule,
     // UserJobModule,
     // UserPaymentModule,
     // UserStatusModule,

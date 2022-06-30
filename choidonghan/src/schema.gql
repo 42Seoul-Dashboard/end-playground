@@ -7,15 +7,12 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
-type Query {
-  getUserAccessCardInformation: [UserAccessCardInformation!]!
-  getUserById(created_date: DateTime!, experience_of_software_developing: String!, highest_level_of_education: String!, major: String!, major_field: String!, major_name: DateTime!, period_of_software_learning: Int, pk: Int): [User!]!
-  getUserOtherInformation: [UserOtherInformation!]!
-  getUserPersonalInformation: [UserPersonalInformation!]!
-  getUsers: [User!]!
-}
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
 
-type User {
+type JoinedTable {
   academic_state: String!
   coalition: String!
   created_date: DateTime!
@@ -24,6 +21,22 @@ type User {
   intra_no: Int!
   name: String!
   start_process: DateTime!
+  userAccessCardInformation: [UserAccessCardInformation!]!
+  userOtherInformation: [UserOtherInformation!]!
+  userPersonalInformation: UserPersonalInformation!
+}
+
+type Query {
+  getFilter(filters: JSON!): [JoinedTable!]!
+  getUserAccessCardInformation: [UserAccessCardInformation!]!
+  getUserById(created_date: DateTime!, experience_of_software_developing: String!, highest_level_of_education: String!, major: String!, major_field: String!, major_name: DateTime!, period_of_software_learning: Int, pk: Int): [User!]!
+  getUserOtherInformation: [UserOtherInformation!]!
+  getUserPersonalInformation: [UserPersonalInformation!]!
+  getUsers: [User!]!
+}
+
+type User {
+  intra_no: Int!
 }
 
 type UserAccessCardInformation {

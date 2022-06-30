@@ -53,7 +53,12 @@ export class User {
   grade: string;
 
   // @Field()
-  @Column({ name: 'start_process', nullable: false, default: '9999-12-31' })
+  @Column({
+    name: 'start_process',
+    nullable: false,
+    default: '9999-12-31',
+    type: 'date',
+  })
   start_process: Date;
 
   // @Field()

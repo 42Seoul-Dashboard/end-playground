@@ -7,6 +7,7 @@ import {
   JoinColumn,
   OneToOne,
   PrimaryColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { User } from './user_information.entity';
 //출입카드정보
@@ -14,7 +15,7 @@ import { User } from './user_information.entity';
 @ObjectType()
 export class UserAccessCardInformation extends BaseEntity {
   @Field((type) => Int)
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn({ name: 'pk' })
   pk: number;
 
   @Field()

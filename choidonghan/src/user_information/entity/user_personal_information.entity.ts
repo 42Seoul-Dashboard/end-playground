@@ -7,6 +7,7 @@ import {
   JoinColumn,
   OneToOne,
   PrimaryColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { User } from './user_information.entity';
 
@@ -15,7 +16,7 @@ import { User } from './user_information.entity';
 @ObjectType()
 export class UserPersonalInformation {
   @Field((type) => Int)
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn({ name: 'pk' })
   pk: number;
 
   @Field()
